@@ -18,10 +18,10 @@ Self check:
 
 ## __Additional options__
 
-- [x] POST/products lambda functions returns error 400 status code if product data is invalid
-- [x] All lambdas return error 500 status code on any error (DB connection, any unhandled error in code)
-- [x] All lambdas do console.log for each incoming requests and their arguments
-- [x] Transaction based creation of product (in case stock creation is failed then related to this stock product is not created and not ready to be used by the end user and vice versa)
+- [x] Ad.1: POST/products lambda functions returns error 400 status code if product data is invalid
+- [x] Ad.2: All lambdas return error 500 status code on any error (DB connection, any unhandled error in code)
+- [x] Ad.3: All lambdas do console.log for each incoming requests and their arguments
+- [x] Ad.4: Transaction based creation of product (in case stock creation is failed then related to this stock product is not created and not ready to be used by the end user and vice versa)
 ------------
 # __FrontEnd__
 
@@ -32,13 +32,15 @@ Self check:
 
 Task   | Description | Method | URL 
 -------|-------------|--------|-----
-Task 4.1 | SQL script with exemple data | GET | [SQL script with exemple data](https://github.com/SeLub/shop-aws-be/blob/task-4/product-service/sql_scripts/products_and_stocks.sql)
+Task 4.1 | SQL script with exemple data | GET | https://github.com/SeLub/shop-aws-be/blob/task-4/product-service/sql_scripts/products_and_stocks.sql
 Task 4.2 | getProductsList get ALL products from DB | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products
-Task 4.2 | getProductsById get ONE product from DB by id | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/39d39374-ef1f-4be7-ab61-43a55e64f0ad
-Task 4.2 | getProductsById Product in DB not found | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/777
+Task 4.2 | getProductsById get product from DB by id | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/830be059-d085-4f6f-976e-d5bafa3e1162
+Ad.1 | getProductsById get product with WRONG id | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/830be059-d085-4f6f-976e-d5bafa3e1165
+Ad.2 | getProductsById get product with invalid id | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/777
 Task 4.3 | getProductsById POST to add product to DB | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/
 
 ------------
 
 # __Swagger documentation__
+
 https://app.swaggerhub.com/apis/SeLub/AWSShopAPI/1.0.0
