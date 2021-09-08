@@ -33,7 +33,7 @@ Self check:
 Task | Description | Method | URL 
 -------|-------------|--------|-----
 
-Task 4.1 | SQL script with exemple data | GET | https://github.com/SeLub/shop-aws-be/blob/task-4/product-service/sql_scripts/products_and_stocks.sql
+Task 4.1 | SQL script with exemple data | GET | https://github.com/SeLub/shop-aws-be/blob/task-4/product-service/sql_scripts/
 Task 4.2 | getProductsList get ALL products from DB | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/
 Task 4.2 | getProductsById get ONE product from DB by id | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/39d39374-ef1f-4be7-ab61-43a55e64f0ad
 Task 4.2 | getProductsById Product in DB not found | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/777
