@@ -25,15 +25,17 @@ Self check:
 ------------
 # __FrontEnd__
 
-![Image of Stock](/stock_count.png)
-
-Данные во FE отобраажаются от API, который в свою очередь берёт их из базы данных RDS AWS.
-Картинки хранятся в специально созданнном S3 Bucket. Для него настроен CloudFront.
-Рядом с ценой каждого товара выводится остаток на складе (stock).
-
+![Image of Stock](https://github.com/SeLub/shop-aws-be/blob/task-4/product-service/stock_count.png)
 
 * FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d3ph6tvz43noms.cloudfront.net/ 
 * FrontEnd Task-4 Pull Request : - https://github.com/SeLub/shop-aws-fe/pull/3
+
+```
+Данные во FE отобраажаются от API, который в свою очередь берёт их из базы данных RDS AWS.
+Картинки хранятся в специально созданнном S3 Bucket. Для него настроен CloudFront.
+Рядом с ценой каждого товара выводится остаток на складе (stock).
+Для товара у которого нет картинки используется стандартная картинка-заглушка
+```
 
 # __BackEnd__
 
