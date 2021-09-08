@@ -27,14 +27,23 @@ const credentials = {
 let data_export = {}, error_code = 200;
 
 export const handler = async event => {
+  
+  console.log(event);
+
   const { productId } = event.pathParameters || {};
 
   const client = new Client(credentials);
 
+  client.on('error', err => {
+                            data_export = 'DB Client Error 500:' + err.stack;
+                            error_code = 500;
+                            console.error('DB Client Error 500:', err.stack);
+                            })
+
   await client
           .connect()
           .then(() => console.log('Client connected'))
-          .catch(err => {data_export = 'Client connection error:' + err.stack; error_code = 500})
+          .catch(err => {data_export = 'DB connection error:' + err.stack; error_code = 500})
 
 
  await client
@@ -42,15 +51,16 @@ export const handler = async event => {
                         FROM products LEFT JOIN stocks \
                         ON products.id = stocks.product_id\
                         WHERE products.id='${productId}'`)
+
           .then(res => { data_export = res.rows })
-          .catch(err => { data_export = 'DB Error 500:' + err.stack; error_code = 500})   
+          .catch(err => { data_export = 'DB query error 500:' + err.stack; error_code = 500})   
   
   await client
           .end()
           .then(() => console.log('Client disconnected'))
-          .catch(err => {data_export = 'DB Error 500:' + err.stack; error_code = 500})
+          .catch(err => {data_export = 'DB disconnection error 500:' + err.stack; error_code = 500})
 
-  if (JSON.stringify(data_export) == JSON.stringify([])) { data_export = 'Product not found 400: Wrong id'; error_code = 400 }
+  if (JSON.stringify(data_export) == JSON.stringify([])) { data_export = 'Product not found 500: Wrong id'; error_code = 400 }
 
   return await handleResponse(data_export, error_code);
 }
