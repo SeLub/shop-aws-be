@@ -39,7 +39,7 @@ export const handler = async event => {
 
   await client
           .query('SELECT products.*, stocks.count FROM products LEFT JOIN stocks ON products.id = stocks.product_id')
-          .then(res => { data_export = res.rows })
+          .then(res => { data_export = res.rows; error_code = 200 })
           .catch(err => { data_export = 'DB Error 500:' + err.stack; error_code = 500})
 
   await client
@@ -47,5 +47,5 @@ export const handler = async event => {
           .then(() => console.log('Client disconnected'))
           .catch(err => {data_export = 'DB Error 500:' + err.stack; error_code = 500})
 
-  return await handleResponse({data_export, error_code});
+  return await handleResponse(data_export, error_code);
 }

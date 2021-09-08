@@ -82,12 +82,12 @@ functions:
           method: get
           cors: true
 
-    createProduct:
-    handler: lambdas/endpoints/createProduct.handler
+  createProduct:
+    handler: functions/createProduct/createProduct.handler
     events:
       - http:
           path: products
-          method: POST
+          method: post
           cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

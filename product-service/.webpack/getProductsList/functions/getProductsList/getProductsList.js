@@ -9286,32 +9286,27 @@ const credentials = {
 let data_export = {}, error_code = 200;
 
 const handler = async event => {
-  const { productId } = event.pathParameters || {};
-
+  
   const client = new pg__WEBPACK_IMPORTED_MODULE_0__.Client(credentials);
+
+  await client.connect();
 
   await client
           .connect()
           .then(() => console.log('Client connected'))
           .catch(err => {data_export = 'Client connection error:' + err.stack; error_code = 500})
 
+  await client
+          .query('SELECT products.*, stocks.count FROM products LEFT JOIN stocks ON products.id = stocks.product_id')
+          .then(res => { data_export = res.rows; error_code = 200 })
+          .catch(err => { data_export = 'DB Error 500:' + err.stack; error_code = 500})
 
- await client
-          .query(`SELECT products.*, stocks.count \
-                        FROM products LEFT JOIN stocks \
-                        ON products.id = stocks.product_id\
-                        WHERE products.id='${productId}'`)
-          .then(res => { data_export = res.rows })
-          .catch(err => { data_export = 'DB Error 500:' + err.stack; error_code = 500})   
-  
   await client
           .end()
           .then(() => console.log('Client disconnected'))
           .catch(err => {data_export = 'DB Error 500:' + err.stack; error_code = 500})
 
-  if (JSON.stringify(data_export) == JSON.stringify([])) { data_export = 'Product not found 400: Wrong id'; error_code = 400 }
-
-  return await handleResponse({data_export, error_code});
+  return await handleResponse(data_export, error_code);
 }
 })();
 

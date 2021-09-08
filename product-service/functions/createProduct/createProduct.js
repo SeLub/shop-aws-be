@@ -37,11 +37,11 @@ export const handler = async event => {
 
 const { title, description, price, image_id, count } = JSON.parse(event.body)
 
-if (!title) {data_export = 'Error: Title is mandatory! Please provide Title of Product.'; error_code = 500})
-if (!description) {description = ''})
-if (!price) {price = 0})
-if (!image_id) {image_id = 'null'})
-if (!count) {count = 0})
+if (!title) {title=''; data_export = 'Error: Title is mandatory! Please provide Title of Product.'; error_code = 500}
+if (!description) {description = ''}
+if (!price) {price = 0}
+if (!image_id) {image_id = 'null'}
+if (!count) {count = 0}
 
 
 
