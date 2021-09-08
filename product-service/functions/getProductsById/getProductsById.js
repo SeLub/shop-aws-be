@@ -52,5 +52,5 @@ export const handler = async event => {
 
   if (JSON.stringify(data_export) == JSON.stringify([])) { data_export = 'Product not found 400: Wrong id'; error_code = 400 }
 
-  return await handleResponse({data_export, error_code});
+  return await handleResponse(data_export, error_code);
 }

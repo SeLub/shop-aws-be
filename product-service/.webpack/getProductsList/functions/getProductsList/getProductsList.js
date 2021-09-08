@@ -9286,25 +9286,31 @@ const credentials = {
 let data_export = {}, error_code = 200;
 
 const handler = async event => {
+
+  console.log(event);
   
   const client = new pg__WEBPACK_IMPORTED_MODULE_0__.Client(credentials);
-
-  await client.connect();
+  
+  client.on('error', err => {
+                            data_export = 'DB Client Error 500:' + err.stack;
+                            error_code = 500;
+                            console.error('DB Client Error 500:', err.stack);
+                            })
 
   await client
           .connect()
           .then(() => console.log('Client connected'))
-          .catch(err => {data_export = 'Client connection error:' + err.stack; error_code = 500})
+          .catch(err => {data_export = 'DB connection error:' + err.stack; error_code = 500})
 
   await client
           .query('SELECT products.*, stocks.count FROM products LEFT JOIN stocks ON products.id = stocks.product_id')
           .then(res => { data_export = res.rows; error_code = 200 })
-          .catch(err => { data_export = 'DB Error 500:' + err.stack; error_code = 500})
+          .catch(err => { data_export = 'DB query error 500:' + err.stack; error_code = 500})
 
   await client
           .end()
-          .then(() => console.log('Client disconnected'))
-          .catch(err => {data_export = 'DB Error 500:' + err.stack; error_code = 500})
+          .then(() => console.log('DB Client disconnected'))
+          .catch(err => {data_export = 'DB disconnection error 500:' + err.stack; error_code = 500})
 
   return await handleResponse(data_export, error_code);
 }
