@@ -1,5 +1,4 @@
 import { Client } from 'pg';
-//const { Client } = require("pg");
 
 const handleResponse = (products = {}, status = 200) => ({
   headers: {
@@ -25,37 +24,31 @@ const credentials = {
   connectionTimeoutMillis: 5000,
 };
 
-
-async function getProductById(productId) {
-  const client = new Client(credentials);
-  await client.connect();
-  client.on('Notice', msg => console.warn('notice:', msg));
-
-  client.on('error', err => {
-  console.error('Error:', err.stack);
-            })
-
-  const data = await client.query(`SELECT products.*, stocks.count \
-                                    FROM products LEFT JOIN stocks \
-                                    ON products.id = stocks.product_id\
-                                    WHERE products.id='${productId}'`)
-  ;
-  const rows = data.rows
-  await client.end();
-
-  return rows;
-}
+let data_export = {}, error_code = 200;
 
 export const handler = async event => {
   const { productId } = event.pathParameters || {};
-  return await handleResponse(await getProductById(productId));
+
+  const client = new Client(credentials);
+
+  await client
+          .connect()
+          .then(() => console.log('Client connected'))
+          .catch(err => {data_export = 'Client connection error:' + err.stack; error_code = 500})
+
+
+ await client
+          .query(`SELECT products.*, stocks.count \
+                        FROM products LEFT JOIN stocks \
+                        ON products.id = stocks.product_id\
+                        WHERE products.id='${productId}'`)
+          .then(res => { data_export = res.rows })
+          .catch(err => { data_export = 'DB Error 500:' + err.stack; error_code = 500})   
+  
+  await client
+          .end()
+          .then(() => console.log('Client disconnected'))
+          .catch(err => {data_export = 'DB Error 500:' + err.stack; error_code = 500})
+
+  return await handleResponse({data_export, error_code});
 }
-
-
-
-
-     //   if (!productId) { return response({ message: 'Error: Product not found! No Id Provided' }, 400) }
-     //     else {
-     //       const product = await getProductById(productId);
-     //           if (!product)   { return response({ message: `Error: Product not found! No Product found with id:${productId}` }, 400);}
-     //     }
