@@ -30,8 +30,8 @@ Self check:
 
 # __BackEnd__
 
-Task | Description | Method | URL 
--------|-------------|--------|-----
+  Task   | Description                             |   Method | URL    
+---------|-----------------------------------------|----------|----------------------------------------
 
 Task 4.1 | SQL script with exemple data | GET | https://github.com/SeLub/shop-aws-be/blob/task-4/product-service/sql_scripts/
 Task 4.2 | getProductsList get ALL products from DB | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/
