@@ -30,10 +30,9 @@ Self check:
 
 # __BackEnd__
 
-Task | Description | Method | URL 
+Task   | Description | Method | URL 
 -------|-------------|--------|-----
-
-Task 4.1 | SQL script with exemple data | GET | [SQL script with exemple data](https://github.com/SeLub/shop-aws-be/blob/task-4/product-service/sql_scripts/products_and_stocks.sql)
+Task 4.1 | SQL script with exemple data | GET | https://github.com/SeLub/shop-aws-be/blob/task-4/product-service/sql_scripts/products_and_stocks.sql
 Task 4.2 | getProductsList get ALL products from DB | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products
 Task 4.2 | getProductsById get ONE product from DB by id | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/39d39374-ef1f-4be7-ab61-43a55e64f0ad
 Task 4.2 | getProductsById Product in DB not found | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/777
@@ -43,4 +42,3 @@ Task 4.3 | getProductsById POST to add product to DB | GET | https://8kbhxjy1vk.
 
 # __Swagger documentation__
 https://app.swaggerhub.com/apis/SeLub/AWSShopAPI/1.0.0
-
