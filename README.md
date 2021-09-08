@@ -25,7 +25,7 @@ Self check:
 ------------
 # __FrontEnd__
 
-![Image of Stock](stock_count.png)
+![Image of Stock](/stock_count.png)
 
 Данные во FE отобраажаются от API, который в свою очередь берёт их из базы данных RDS AWS.
 Картинки хранятся в специально созданнном S3 Bucket. Для него настроен CloudFront.
