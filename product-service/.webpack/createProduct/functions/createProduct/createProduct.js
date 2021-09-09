@@ -9285,14 +9285,13 @@ const credentials = {
 
 let data_export = {}, error_code = 200;
 
+
 const handler = async event => {
   
   console.log(event);
 
-  const { productId } = event.pathParameters || {};
-
   const client = new pg__WEBPACK_IMPORTED_MODULE_0__.Client(credentials);
-
+  
   client.on('error', err => {
                             data_export = 'DB Client Error 500:' + err.stack;
                             error_code = 500;
@@ -9305,24 +9304,59 @@ const handler = async event => {
           .catch(err => {data_export = 'DB connection error:' + err.stack; error_code = 500})
 
 
- await client
-          .query(`SELECT products.*, stocks.count \
-                        FROM products LEFT JOIN stocks \
-                        ON products.id = stocks.product_id\
-                        WHERE products.id='${productId}'`)
+  try {
+      
+      const { title, description, price, imageid, count } = JSON.parse(event.body);
+      
+      if (typeof title === 'undefined' || title === '') { data_export = 'Not valid data for product creation' ; error_code = 400; return handleResponse(data_export, error_code); }
 
-          .then(res => { data_export = res.rows })
-          .catch(err => { data_export = 'DB query error 500:' + err.stack; error_code = 500})   
+      await client.query('BEGIN');
+
+      const queryProduct = 'INSERT INTO products(title, description, price, imageid) VALUES($1, $2, $3, $4) RETURNING id';
+
+      const valuesProduct = [title, description, price, imageid];
+
+      const queryStock = 'INSERT INTO stocks(product_id, count) VALUES($1, $2)';
+
+      const {rows: products} = await client.query(queryProduct, valuesProduct);
+
+      const productId = products[0].id;
+
+      const countStock = [productId, count];
+
+      await client.query(queryStock, countStock);
+    
+      console.log("Product created:" + productId);
+    
+      await client.query('COMMIT');
+    
+      data_export = {
+                    title,
+                    description,
+                    price,
+                    imageid,
+                    count,
+                    id: productId,
+                    };
+      
+      error_code = 200;
+
+      } catch (err) {
+    
+      data_export = 'DB insert error 500:' + err; error_code = 500;
+
+      await client.query('ROLLBACK');
+    
+      throw new Error('Failed to create product in database + ' + err);
   
-  await client
-          .end()
-          .then(() => console.log('Client disconnected'))
-          .catch(err => {data_export = 'DB disconnection error 500:' + err.stack; error_code = 500})
+      } finally {
+    
+      client.end();
 
-  if (JSON.stringify(data_export) == JSON.stringify([])) { data_export = 'Product not found 500: Wrong id'; error_code = 400 }
-
-  return await handleResponse(data_export, error_code);
-}
+      return handleResponse(data_export, error_code);
+      
+      }
+};
 })();
 
 var __webpack_export_target__ = exports;
