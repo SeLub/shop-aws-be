@@ -52,6 +52,24 @@ Task 4.3 | __createProduct__ POST to add product to DB | POST | https://8kbhxjy1
 
 ### Скриншоты 
 
+Task 4.3 - Создание товара POST запросом
+
+- Postman:
+
+![Postman](https://github.com/SeLub/shop-aws-be/blob/task-4/product-service/postaman.png)
+
+- Frontend:
+
+![Frontend](https://github.com/SeLub/shop-aws-be/blob/task-4/product-service/postaman_2.png)
+
+
+Пункт Ad.1
+
+- При некорректном запросе на создание товара выкидывается ошибка
+
+![Not Valid Data](https://github.com/SeLub/shop-aws-be/blob/task-4/product-service/not_valid.png)
+
+
 Пункт Ad.2
 
 - Ошибка в SQL запросе
