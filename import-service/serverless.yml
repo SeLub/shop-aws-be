@@ -1,0 +1,40 @@
+service: import-service
+frameworkVersion: '2'
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: eu-central-1
+  environment:
+    PG_HOST: ${env:PG_HOST}
+    PG_PORT: ${env:PG_PORT}
+    PG_DATABASE: ${env:PG_DATABASE}
+    PG_USERNAME: ${env:PG_USERNAME}
+    PG_PASSWORD: ${env:PG_PASSWORD} 
+
+plugins:
+  - serverless-webpack
+
+resources:
+  Resources:
+    PhotosBucket:
+        Type: AWS::S3::Bucket
+        Properties:
+            BucketName: !Sub ‘${self:custom.photosBucketName}’
+            AccessControl: Private
+            CorsConfiguration:
+                CorsRules:
+                -   AllowedHeaders: [‘*’]
+                    AllowedMethods: [‘*’]
+                    AllowedOrigins: [‘*’]
+
+functions:
+  importProductsFile:
+    handler: functions/importProductsFile/importProductsFile.handler
+    events:
+      - http:
+          path: products 
+          method: get
+          cors: true  
