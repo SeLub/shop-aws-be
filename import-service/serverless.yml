@@ -28,23 +28,31 @@ plugins:
 #            - "/*"
 package:
   individually: true
-
-resources:
-  Resources:
-    CSVProductsBucket:
-        Type: AWS::S3::Bucket
-        Properties:
-            BucketName: task-5-uploaded-csv
-            AccessControl: Private
-            CorsConfiguration:
-                CorsRules:
-                -   AllowedHeaders: [‘*’]
-                    AllowedMethods: [‘*’]
-                    AllowedOrigins: [‘*’]
+#resources:
+#  Resources:
+#      CSVProductsBucket:
+#      Type: 'AWS::S3::Bucket'
+#      Properties:
+#        BucketName: task-5-uploaded-csv-test
+#        AccessControl: PublicRead
+#        CorsConfiguration:
+#          CorsRules:
+#            - AllowedHeaders:
+#                - '*'
+#              AllowedMethods:
+#                - GET
+#                - PUT
+#                - HEAD
+#              AllowedOrigins:
+#                - '*'
+#  Outputs:
+#    BucketName:
+#      Value: !Ref CSVProductsBucket
+#      Description: Name of the bucket for CSV with CORS enabled.
 
 functions:
   importProductsFile:
-    handler: functions/importProductsFile/importProductsFile/handler.importProductsFile
+    handler: functions/importProductsFile/importProductsFile.handler
     events:
       - http:
           path: /import

@@ -1,7 +1,8 @@
 import { S3Client, GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
-let resault = undefined;
+let resault = undefined, stCode = 0;
+
 
 export const handler = async event => {
 
@@ -25,12 +26,22 @@ export const handler = async event => {
   	try {
   		const url = await getSignedUrl(client, command);
   		console.log(`Getting signedUrl to put "${catalogPath}" to "${bucketParams.Backet}".\nSinedURL :`, url);
-  		resault = url;
+  		resault = url; stCode = 200;
   			
     	} catch (err) {
     	console.log("Error during presigned URL", err);
-    	resault = null;
+    	resault = null; stCode = 500;
     	}
 
-  	return resault;
+	var response = {
+        statusCode: stCode,
+    	headers: {
+			    'Access-Control-Allow-Origin': '*',
+    			'Access-Control-Allow-Credentials': true,
+  				},
+  		body: resault,
+        isBase64Encoded: false
+    };
+
+  	return response;
 };
