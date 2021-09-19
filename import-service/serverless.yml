@@ -1,28 +1,39 @@
 service: import-service
+
 frameworkVersion: '2'
-useDotenv: true
 
 provider:
   name: aws
   runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
   stage: dev
   region: eu-central-1
-  environment:
-    PG_HOST: ${env:PG_HOST}
-    PG_PORT: ${env:PG_PORT}
-    PG_DATABASE: ${env:PG_DATABASE}
-    PG_USERNAME: ${env:PG_USERNAME}
-    PG_PASSWORD: ${env:PG_PASSWORD} 
 
 plugins:
-  - serverless-webpack
+  - serverless-webpack  
+# you can add statements to the Lambda function's IAM Role here
+#  iamRoleStatements:
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:ListBucket"
+#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:PutObject"
+#      Resource:
+#        Fn::Join:
+#          - ""
+#          - - "arn:aws:s3:::"
+#            - "Ref" : "ServerlessDeploymentBucket"
+#            - "/*"
+package:
+  individually: true
 
 resources:
   Resources:
-    PhotosBucket:
+    CSVProductsBucket:
         Type: AWS::S3::Bucket
         Properties:
-            BucketName: !Sub ‘${self:custom.photosBucketName}’
             AccessControl: Private
             CorsConfiguration:
                 CorsRules:
@@ -32,9 +43,13 @@ resources:
 
 functions:
   importProductsFile:
-    handler: functions/importProductsFile/importProductsFile.handler
+    handler: functions/importProductsFile/importProductsFile/handler.importProductsFile
     events:
       - http:
-          path: products 
+          path: /import
           method: get
-          cors: true  
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                name: true
