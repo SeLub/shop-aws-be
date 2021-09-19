@@ -34,6 +34,7 @@ resources:
     CSVProductsBucket:
         Type: AWS::S3::Bucket
         Properties:
+            BucketName: task-5-uploaded-csv
             AccessControl: Private
             CorsConfiguration:
                 CorsRules:
