@@ -22,7 +22,7 @@ Self check:
 - [ ] Ad.2: +1 (All languages) - importProductsFile lambda is covered by unit tests ((for JS only) aws-sdk-mock can be used to mock S3 methods
 - [x] Ad.3: +1 (All languages) - At the end of the stream the lambda function should move the file from the uploaded folder into the parsed folder (move the file means that file should be copied into parsed folder, and then deleted from uploaded folder)
 ------------
-# __FrontEnd__
+## __FrontEnd__
 
 ```
 Данные во FE отобраажаются от API, который в свою очередь берёт их из базы данных RDS AWS.
@@ -40,8 +40,18 @@ Self check:
 * FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d3ph6tvz43noms.cloudfront.net/ 
 * FrontEnd Task-5 Pull Request : - https://github.com/SeLub/shop-aws-fe/pull/4
 
-# __BackEnd__
+## __BackEnd__
 
+```
+В Task-5 реализовано: 
+- при деплое автоматическое создание бакета task-5-csv-uploaded для загрузки CSV с автоматичеким прописанием ему CORS
+- загрузка CSV файла со списком товаров на бэкед (в специально созданный S3 Bucket - task-5-csv-uploaded)
+- по факту загрузки именно csv файла именно в директорию uploaded/ срабатывает парсинг файла с выводом в данных в логи CloudWatch
+Все эти задачи реализованы в рамках создания нового сервиса import-service со своим собственным serverless.yml и функциями
+
+```
+
+# __Summary Report__
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
 EvCr.1 | Link to serverless.yml with importProductsFile function   | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/serverless.yml
@@ -53,10 +63,10 @@ Ad.1 | async/await is used in importFileParser | https://github.com/SeLub/shop-a
 Ad.2 | In progress... | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/777
 Ad.3 | Please check code (Line 35-36) and screenshots below | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
 
-### Скриншоты 
+## Screenshots 
 
 ------------
 
-# __Swagger documentation__
+## __Swagger documentation__
 
 https://app.swaggerhub.com/apis/SeLub/AWSShopAPI/1.0.0
