@@ -11,10 +11,10 @@ Self check:
 -----------
 ## __Evaluation criteria__
 
-- [x] EvCr.1 1 - File serverless.yml contains configuration for importProductsFile function
-- [x] EvCr.2 3 - The importProductsFile lambda function returns a correct response which can be used to upload a file into the S3 bucket
-- [x] EvCr.3 4 - Frontend application is integrated with importProductsFile lambda
-- [x] EvCr.4 5 - The importFileParser lambda function is implemented and serverless.yml contains configuration for the lambda
+- [x] Cr.1: +1 - File serverless.yml contains configuration for importProductsFile function
+- [x] Cr.2: +3 - The importProductsFile lambda function returns a correct response which can be used to upload a file into the S3 bucket
+- [x] Cr.3: +4 - Frontend application is integrated with importProductsFile lambda
+- [x] Cr.4: +5 - The importFileParser lambda function is implemented and serverless.yml contains configuration for the lambda
 
 ## __Additional (optional) tasks__
 
@@ -54,10 +54,10 @@ Self check:
 # __Summary Report__
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
-EvCr.1 | Link to serverless.yml with importProductsFile function   | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/serverless.yml
-EvCr.2 | Response to upload CSV to S3 by importProductsFile lambda | https://pipwbmgctg.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
-EvCr.3 | Try youself by sending CSV and check errors in Chrome console | https://d3ph6tvz43noms.cloudfront.net/admin/products
-EvCr.4 | Link to importFileParser. Link to serverless.yml see in EvCr.1 | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
+Cr.1 | Link to serverless.yml with importProductsFile function   | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/serverless.yml
+Cr.2 | Response to upload CSV to S3 by importProductsFile lambda | https://pipwbmgctg.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
+Cr.3 | Try youself by sending CSV and check errors in Chrome console | https://d3ph6tvz43noms.cloudfront.net/admin/products
+Cr.4 | Link to importFileParser. Link to serverless.yml see in EvCr.1 | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
 Ad.1 | async/await is used in importProductsFile | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.js
 Ad.1 | async/await is used in importFileParser | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
 Ad.2 | In progress... | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/777
