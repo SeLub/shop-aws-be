@@ -22,6 +22,19 @@ Self check:
 - [ ] Ad.2: +1 (All languages) - importProductsFile lambda is covered by unit tests ((for JS only) aws-sdk-mock can be used to mock S3 methods
 - [x] Ad.3: +1 (All languages) - At the end of the stream the lambda function should move the file from the uploaded folder into the parsed folder (move the file means that file should be copied into parsed folder, and then deleted from uploaded folder)
 ------------
+
+# __Summary Report__
+Evaluation criteria   | Description | URL 
+-------|--------------|-----
+Cr.1 | Link to serverless.yml with importProductsFile function   | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/serverless.yml
+Cr.2 | Response to upload CSV to S3 by importProductsFile lambda | https://pipwbmgctg.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
+Cr.3 | Try youself by sending CSV and check errors in Chrome console | https://d3ph6tvz43noms.cloudfront.net/admin/products
+Cr.4 | Link to importFileParser. Link to serverless.yml see in EvCr.1 | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
+Ad.1 | async/await is used in importProductsFile | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.js
+Ad.1 | async/await is used in importFileParser | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
+Ad.2 | In progress... | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/777
+Ad.3 | Please check code (Line 35-36) and screenshots below | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
+
 ## __FrontEnd__
 
 ```
@@ -61,18 +74,6 @@ Self check:
 создания приложения микросервисной архитектуры.
 
 ```
-
-# __Summary Report__
-Evaluation criteria   | Description | URL 
--------|--------------|-----
-Cr.1 | Link to serverless.yml with importProductsFile function   | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/serverless.yml
-Cr.2 | Response to upload CSV to S3 by importProductsFile lambda | https://pipwbmgctg.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
-Cr.3 | Try youself by sending CSV and check errors in Chrome console | https://d3ph6tvz43noms.cloudfront.net/admin/products
-Cr.4 | Link to importFileParser. Link to serverless.yml see in EvCr.1 | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
-Ad.1 | async/await is used in importProductsFile | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.js
-Ad.1 | async/await is used in importFileParser | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
-Ad.2 | In progress... | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/777
-Ad.3 | Please check code (Line 35-36) and screenshots below | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
 
 ## Screenshots 
 
