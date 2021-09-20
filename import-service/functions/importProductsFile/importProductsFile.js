@@ -9,7 +9,7 @@ export const handler = async event => {
 	console.log(event);
  	let fileName = event['queryStringParameters']['name'];
 
-	const BACKET = "task-5-uploaded-csv"; //BUCKET_NAME
+	const BACKET = "task-5-csv-uploaded"; //BUCKET_NAME
 	const catalogPath = `uploaded/${fileName}`; // FILE_NAME
 	const signedUrlExpireSeconds = 60*5; //EXPIRATION
 
