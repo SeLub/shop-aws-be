@@ -29,7 +29,7 @@ Evaluation criteria   | Description | URL
 Cr.1 | Link to serverless.yml with importProductsFile function   | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/serverless.yml
 Cr.2 | SignedURL to upload CSV in S3 by importProductsFile lambda | https://pipwbmgctg.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
 Cr.3 | Try youself by sending CSV and check errors in Chrome console | https://d3ph6tvz43noms.cloudfront.net/admin/products
-Cr.4 | Link to importFileParser. Link to serverless.yml see in EvCr.1 | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
+Cr.4 | Link to importFileParser. Link to serverless.yml see in Cr.1 | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
 Ad.1 | async/await is used in importProductsFile | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.js
 Ad.1 | async/await is used in importFileParser | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
 Ad.2 | Please check code by link and screenshots below | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.test.js
@@ -58,8 +58,8 @@ Ad.3 | Please check code (Line 35-36) and screenshots below | https://github.com
 ```
 В Task-5 реализовано: 
 
-- автоматическое создание бакета task-5-csv-uploadedпри деплое
-  для загрузки CSV с автоматичеким прописанием ему CORS
+- автоматическое создание бакета task-5-csv-uploaded при деплое
+  для загрузки CSV с автоматичеcким прописанием ему CORS
   (дополнительно к заданию 5)
 
 - загрузка CSV файла со списком товаров на бэкед 
