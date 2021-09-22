@@ -1,12 +1,12 @@
-# __Task 5__
+# __Task 6__
 
-Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/main/task5-import-to-s3/task.md)
+Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/main/task6-async-services-integration-sqs-sns/task.md)
 
-Task due date / deadline date - 22.09.21 / 22.09.21 23:59(GMT+3)
+Task due date / deadline date - ??.??.?? / ??.??.?? 23:59(GMT+3)
 
 Self check:
  
- TOTAL POINTS - _** 8 points**_
+ TOTAL POINTS - _** ?? points**_
  
 -----------
 ## __Evaluation criteria__
