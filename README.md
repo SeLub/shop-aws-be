@@ -86,7 +86,11 @@ Ad.3 | Please check code (Line 35-36) and screenshots below | https://github.com
 
 ### CloudWatch
 
-![Fronypage screenshot after download CSV](cloudwatch.png)
+![CloudWatch screenshot after parsing CSV](cloudwatch.png)
+
+### Tests
+
+![Tests resaults](tests.png)
 
 ## __Swagger documentation__
 
