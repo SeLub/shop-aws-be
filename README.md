@@ -80,6 +80,14 @@ Ad.3 | Please check code (Line 35-36) and screenshots below | https://github.com
 
 ------------
 
+### Frontend
+
+![Fronypage screenshot after download CSV](frontpage.png)
+
+### CloudWatch
+
+![Fronypage screenshot after download CSV](cloudwatch.png)
+
 ## __Swagger documentation__
 
 https://app.swaggerhub.com/apis/SeLub/AWSShopAPI/1.0.0
