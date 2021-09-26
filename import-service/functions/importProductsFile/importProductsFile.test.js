@@ -19,10 +19,7 @@ describe('importProductsFile', () => {
 
     const mockUrl = 'https://task-5-csv-uploaded.s3.eu-central-1.amazonaws.com/uploaded/products.csv';
     
-    beforeEach(() => {
-        AWS.mock('S3', 'getSignedUrl', mockUrl);
-        AWS.restore('S3');
-    });
+    const testString = 'test.csv';
 
     it(`should successfully get \"signedUrl\"`, async () => {
         const result = await importProductsFile(request());
@@ -52,6 +49,29 @@ describe('importProductsFile', () => {
     it(`should return Status Code \"400 Error\" when query does not have \"name\" parameter. `, async () => {
         const result = await importProductsFile( request("GET", { "name22": "" }) );
       expect(result.statusCode).toBe(400);    
+  });
+
+  test('Test getSignedUrl method by AWS mock', async () => {
+    
+    const event_test_request = { queryStringParameters: { name: testString } };
+  
+    AWS.mock('S3', 'getSignedUrl', testString);
+  
+    expect.assertions(1);
+
+    const response = await importProductsFile(event_test_request, null, null);
+
+    expect(response).toEqual(
+      expect.objectContaining({
+        statusCode: 202,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true,
+        },
+        isBase64Encoded: false,
+        body: expect.stringMatching(/test.csv/),
+      })
+    );
   });
 
 });
