@@ -123,3 +123,6 @@ functions:
         rules:
           - prefix: uploaded/
           - suffix: .csv
+  
+  catalogBatchProcess:
+    handler: functions/catalogBatchProcess/catalogBatchProcess.handler          
