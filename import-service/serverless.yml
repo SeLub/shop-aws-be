@@ -18,6 +18,7 @@ provider:
     PG_DATABASE: ${env:PG_DATABASE}
     PG_USERNAME: ${env:PG_USERNAME}
     PG_PASSWORD: ${env:PG_PASSWORD}
+    IMPORT_SQS: ${env:IMPORT_SQS}
     SQS_URL:
       Ref: SQSQueue
     SNS_ARN:
@@ -122,4 +123,3 @@ functions:
         rules:
           - prefix: uploaded/
           - suffix: .csv
-          existing: true
