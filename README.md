@@ -2,11 +2,11 @@
 
 Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/main/task6-async-services-integration-sqs-sns/task.md)
 
-Task due date / deadline date - ??.??.?? / ??.??.?? 23:59(GMT+3)
+Task due date / deadline date - 04.10.21 / 04.10.21 23:59(GMT+3)
 
 Self check:
  
- TOTAL POINTS - _** ?? points**_
+ TOTAL POINTS - _** 6 points**_
  
 -----------
 ## __Evaluation criteria__
@@ -44,29 +44,22 @@ Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** 
 - выводится список товаров
 - загрузка CSV файла со списком товаров на бэкед (в специально созданный S3 Bucket).
 
-
 ```
 
-* FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d3ph6tvz43noms.cloudfront.net/ 
-* FrontEnd Task-5 Pull Request : - https://github.com/SeLub/shop-aws-fe/pull/4
+* FrontEnd: https://d3ph6tvz43noms.cloudfront.net/ 
 
 ## __BackEnd__
 
 ```
-В Task-5 реализовано: 
+В Task-6 реализовано: 
 
-- автоматическое создание бакета task-5-csv-uploaded при деплое
-  для загрузки CSV с автоматичеcким прописанием ему CORS
-  (дополнительно к заданию 5)
+- 
 
-- загрузка CSV файла со списком товаров на бэкед 
-  (в специально созданный S3 Bucket - task-5-csv-uploaded)
+- 
 
-- по факту загрузки именно csv файла именно в директорию uploaded/ срабатывает
-  парсинг файла с выводом данных в логи CloudWatch
+- 
 
-- после вывода данных в CloudWatch файл CSV копируется из uploaded/ в parsed/
-  и папка uploaded/ удаляется
+- 
 
 Все эти задачи реализованы в рамках создания нового сервиса import-service в рамках
 создания приложения микросервисной архитектуры.
