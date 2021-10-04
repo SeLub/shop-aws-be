@@ -1,39 +1,36 @@
-# __Task 5__
+# __Task 6__
 
-Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/main/task5-import-to-s3/task.md)
+Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/main/task6-async-services-integration-sqs-sns/task.md)
 
-Task due date / deadline date - 22.09.21 / 22.09.21 23:59(GMT+3)
+Task due date / deadline date - 04.10.21 / 04.10.21 23:59(GMT+3)
 
 Self check:
  
- TOTAL POINTS - _** 8 points**_
+ TOTAL POINTS - _** 6 points**_
  
 -----------
 ## __Evaluation criteria__
 
-- [x] Cr.1: +1 - File serverless.yml contains configuration for importProductsFile function
-- [x] Cr.2: +3 - The importProductsFile lambda function returns a correct response which can be used to upload a file into the S3 bucket
-- [x] Cr.3: +4 - Frontend application is integrated with importProductsFile lambda
-- [x] Cr.4: +5 - The importFileParser lambda function is implemented and serverless.yml contains configuration for the lambda
+- [x] Cr.1: **1** - File **serverless.yml** contains configuration for **catalogBatchProcess** function
+- [x] Cr.2: **2** - File **serverless.yml** contains policies to allow lambda **catalogBatchProcess** function to interact with SNS and SQS
+- [x] Cr.3: **3** - File **serverless.yml** contains configuration for SQS **catalogItemsQueue**
+- [x] Cr.4: **4** - File **serverless.yml** contains configuration for SNS Topic **createProductTopic** and email subscription
 
 ## __Additional (optional) tasks__
 
-- [x] Ad.1: +1 (for JS only) - async/await is used in lambda functions
-- [x] Ad.2: +1 (All languages) - importProductsFile lambda is covered by unit tests ((for JS only) aws-sdk-mock can be used to mock S3 methods
-- [x] Ad.3: +1 (All languages) - At the end of the stream the lambda function should move the file from the uploaded folder into the parsed folder (move the file means that file should be copied into parsed folder, and then deleted from uploaded folder)
+- [x] Ad.1: +1 **(All languages)** - **catalogBatchProcess** lambda is covered by **unit** tests
+- [x] Ad.2: +1 **(All languages)** - set a Filter Policy for SNS **createProductTopic** in **serverless.yml** (Create an additional email subscription and distribute messages to different emails depending on the filter for any product attribute)
 ------------
 
 # __Summary Report__
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
-Cr.1 | Link to serverless.yml with importProductsFile function   | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/serverless.yml
-Cr.2 | SignedURL to upload CSV in S3 by importProductsFile lambda | https://pipwbmgctg.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
-Cr.3 | Try youself by sending CSV and check errors in Chrome console | https://d3ph6tvz43noms.cloudfront.net/admin/products
-Cr.4 | Link to importFileParser. Link to serverless.yml see in Cr.1 | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
-Ad.1 | async/await is used in importProductsFile | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.js
-Ad.1 | async/await is used in importFileParser | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
-Ad.2 | Please check code by link and screenshots below | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.test.js
-Ad.3 | Please check code (Line 35-36) and screenshots below | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
+Cr.1 | File **serverless.yml** contains configuration for **catalogBatchProcess** function   | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/serverless.yml
+Cr.2 | File **serverless.yml** contains policies to allow lambda **catalogBatchProcess** function to interact with SNS and SQS | https://pipwbmgctg.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
+Cr.3 | File **serverless.yml** contains configuration for SQS **catalogItemsQueue** | https://d3ph6tvz43noms.cloudfront.net/admin/products
+Cr.4 | File **serverless.yml** contains configuration for SNS Topic **createProductTopic** and email subscription | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
+Ad.1 | **catalogBatchProcess** lambda is covered by **unit** tests | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.js
+Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
 
 ## __FrontEnd__
 
@@ -47,29 +44,22 @@ Ad.3 | Please check code (Line 35-36) and screenshots below | https://github.com
 - выводится список товаров
 - загрузка CSV файла со списком товаров на бэкед (в специально созданный S3 Bucket).
 
-
 ```
 
-* FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d3ph6tvz43noms.cloudfront.net/ 
-* FrontEnd Task-5 Pull Request : - https://github.com/SeLub/shop-aws-fe/pull/4
+* FrontEnd: https://d3ph6tvz43noms.cloudfront.net/ 
 
 ## __BackEnd__
 
 ```
-В Task-5 реализовано: 
+В Task-6 реализовано: 
 
-- автоматическое создание бакета task-5-csv-uploaded при деплое
-  для загрузки CSV с автоматичеcким прописанием ему CORS
-  (дополнительно к заданию 5)
+- 
 
-- загрузка CSV файла со списком товаров на бэкед 
-  (в специально созданный S3 Bucket - task-5-csv-uploaded)
+- 
 
-- по факту загрузки именно csv файла именно в директорию uploaded/ срабатывает
-  парсинг файла с выводом данных в логи CloudWatch
+- 
 
-- после вывода данных в CloudWatch файл CSV копируется из uploaded/ в parsed/
-  и папка uploaded/ удаляется
+- 
 
 Все эти задачи реализованы в рамках создания нового сервиса import-service в рамках
 создания приложения микросервисной архитектуры.
