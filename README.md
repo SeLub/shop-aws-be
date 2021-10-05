@@ -23,14 +23,17 @@ Self check:
 ------------
 
 # __Summary Report__
+
+Link to **serverless.yml** - https://github.com/SeLub/shop-aws-be/blob/task-6/import-service/serverless.yml
+
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
-Cr.1 | File **serverless.yml** contains configuration for **catalogBatchProcess** function   | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/serverless.yml
-Cr.2 | File **serverless.yml** contains policies to allow lambda **catalogBatchProcess** function to interact with SNS and SQS | https://pipwbmgctg.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
-Cr.3 | File **serverless.yml** contains configuration for SQS **catalogItemsQueue** | https://d3ph6tvz43noms.cloudfront.net/admin/products
-Cr.4 | File **serverless.yml** contains configuration for SNS Topic **createProductTopic** and email subscription | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
+Cr.1 | File **serverless.yml** contains configuration for **catalogBatchProcess** function   | Lines 127-135 
+Cr.2 | File **serverless.yml** contains policies to allow lambda **catalogBatchProcess** function to interact with SNS and SQS | Line 132 - 135 and 27 - 51
+Cr.3 | File **serverless.yml** contains configuration for SQS **catalogItemsQueue** | Lines 67 - 70
+Cr.4 | File **serverless.yml** contains configuration for SNS Topic **createProductTopic** and email subscription | Lines 72 - 97
 Ad.1 | **catalogBatchProcess** lambda is covered by **unit** tests | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.js
-Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
+Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** | Lines 84 - 86 and 95 - 97
 
 ## __FrontEnd__
 
@@ -53,13 +56,13 @@ Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** 
 ```
 В Task-6 реализовано: 
 
-- 
+- при деплоее автоматически создаётся S3 Bucket **task-5-csv-uploaded** и ему автоматически прописываются Сors. На данный момент Policy для бакета необходимо прописать вручную.
+- лямбда **importFileParser**, загружает csv в S3 Bucket **task-5-csv-uploaded** и отсылает сообщения в SQS очередь **catalogItemsQueue**
 
-- 
+- при деплоее автоматически создаётся SQS очередь **catalogItemsQueue**, которая является тригерром для лямбды **catalogBatchProcess**
+- при деплоее автоматически создаётся лямбда **catalogBatchProcess**, которая получает сообщения из SQS очереди **catalogItemsQueue** по 5 штук и сохраняет их в базе данных
 
-- 
-
-- 
+- при деплоее автоматически создаётся SNS очередь **catalogItemsQueue**, которая отсылает сообщения на e-mail при парсинге товаров из csv
 
 Все эти задачи реализованы в рамках создания нового сервиса import-service в рамках
 создания приложения микросервисной архитектуры.
