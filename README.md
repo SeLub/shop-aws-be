@@ -35,22 +35,6 @@ Cr.4 | File **serverless.yml** contains configuration for SNS Topic **createProd
 Ad.1 | **catalogBatchProcess** lambda is covered by **unit** tests | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.js
 Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** | Lines 84 - 86 and 95 - 97
 
-## __FrontEnd__
-
-```
-Данные во FE отобраажаются от API, который в свою очередь берёт их из базы данных RDS AWS.
-Картинки хранятся в специально созданнном S3 Bucket. Для него настроен CloudFront.
-Рядом с ценой каждого товара выводится остаток на складе (stock).
-Для товара у которого нет картинки используется стандартная картинка-заглушка.
-
-В админке реализовано: 
-- выводится список товаров
-- загрузка CSV файла со списком товаров на бэкед (в специально созданный S3 Bucket).
-
-```
-
-* FrontEnd: https://d3ph6tvz43noms.cloudfront.net/ 
-
 ## __BackEnd__
 
 ```
@@ -68,6 +52,23 @@ Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** 
 создания приложения микросервисной архитектуры.
 
 ```
+
+## __FrontEnd__
+
+```
+Данные во FE отобраажаются от API, который в свою очередь берёт их из базы данных RDS AWS.
+Картинки хранятся в специально созданнном S3 Bucket. Для него настроен CloudFront.
+Рядом с ценой каждого товара выводится остаток на складе (stock).
+Для товара у которого нет картинки используется стандартная картинка-заглушка.
+
+В админке реализовано: 
+- выводится список товаров
+- загрузка CSV файла со списком товаров на бэкед (в специально созданный S3 Bucket).
+
+```
+
+* FrontEnd: https://d3ph6tvz43noms.cloudfront.net/ 
+
 
 ## Screenshots 
 
@@ -95,6 +96,10 @@ Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** 
 #### Также записи выводим в CloudWatch.
 
 ![Messages in CloudWatch](CloudWatch.png)
+
+
+
+# ..Продолжение следует .......
 
 
 ## __Swagger documentation__
