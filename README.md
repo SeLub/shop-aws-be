@@ -55,7 +55,7 @@ Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** 
 
 ## __FrontEnd__
 
-```
+
 Данные во FE отобраажаются от API, который в свою очередь берёт их из базы данных RDS AWS.
 Картинки хранятся в специально созданнном S3 Bucket. Для него настроен CloudFront.
 Рядом с ценой каждого товара выводится остаток на складе (stock).
@@ -65,7 +65,7 @@ Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** 
 - выводится список товаров
 - загрузка CSV файла со списком товаров на бэкед (в специально созданный S3 Bucket).
 
-```
+
 
 * FrontEnd: https://d3ph6tvz43noms.cloudfront.net/ 
 
