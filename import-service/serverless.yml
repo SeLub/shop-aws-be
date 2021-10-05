@@ -125,4 +125,11 @@ functions:
           - suffix: .csv
   
   catalogBatchProcess:
-    handler: functions/catalogBatchProcess/catalogBatchProcess.handler          
+    handler: functions/catalogBatchProcess/catalogBatchProcess.handler
+    events:
+     - sqs:
+         batchSize: 5
+         arn:
+           Fn::GetAtt:
+             - SQSQueue
+             - Arn
