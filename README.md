@@ -72,6 +72,30 @@ Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** 
 ## Screenshots 
 
 ------------
+#### Файл CSV с данными товаров для вставки в базу данных.
+
+![ProductsCSV for download](productscsv.png)
+
+#### Файл CSV с данными товаров загружен Фронтендом без ошибок в S3 бакет.
+
+![ProductsCSV Downloaded by Frontend](downloadedcsv.png)
+
+#### Файл CSV с данными в S3 бакете в папке parsed. Парсинг файла состоялся и на следующем скрине мы увидим результат.
+
+![Parsed ProductsCSV in S3 Bucket](csvparsed.png)
+
+#### Парсинг файла CSV состоялся и мы отправили записи из файла в очередь SQS.
+
+![List of products records in SQS](sqsmessages.png)
+
+#### Так выглядит единичная запись в очереде SQS.
+
+![Single message in SQS](singleMessageInSQS.png)
+
+#### Также записи выводим в CloudWatch.
+
+![Messages in CloudWatch](CloudWatch.png)
+
 
 ## __Swagger documentation__
 
