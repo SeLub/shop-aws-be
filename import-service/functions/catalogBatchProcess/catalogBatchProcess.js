@@ -84,11 +84,11 @@ try {
 
 } catch (error) {
 
-  console.log(error)
-
-  await client.query('ROLLBACK');
+    try {
+          await client.query('ROLLBACK');
+        } catch (rollbackError) { console.log('A rollback error occurred:', rollbackError); }
     
-  throw new Error(`Failed to create product: ${productId} in database + ` + error);
+  console.log(`Failed to insert product: ${productId} in database + ` + error);
 
 }
 
