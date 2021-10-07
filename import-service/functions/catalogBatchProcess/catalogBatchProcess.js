@@ -28,7 +28,7 @@ export const handler = async event => {
   
   //console.log(event);
 
-try {
+
 
   const client = new Client(credentials);
   
@@ -42,7 +42,8 @@ try {
           .then(() => console.log('Client connected'))
           .catch(err => { data_export = 'DB connection error:' + err.stack; console.error(data_export) })
 
-  
+try {
+
   await asyncForEach(event.Records, async (record) => {
 
         let body = JSON.parse(record.body);
@@ -68,7 +69,7 @@ try {
         await client.query(queryStock, countStock)
                     .then(() => console.log('Stock data inserted to DB'))
                     .catch(err => { data_export = 'Error insert Stock data to DB:' + err.stack; console.log(data_export); });
-        console.log("Product created:" + productId);
+        console.log("Product created: " + productId);
         await client.query('COMMIT');
         data_export = {
                         title,
@@ -78,20 +79,22 @@ try {
                         count,
                         id: productId,
                       };
-        console.log('Product Just created:', JSON.stringify(data_export));
+        console.log('Product Just created: ', JSON.stringify(data_export));
         })
 
 } catch (error) {
 
   console.log(error)
 
+  await client.query('ROLLBACK');
+    
+  throw new Error(`Failed to create product: ${productId} in database + ` + error);
 
-} finally {
-        
-        client.end();
-        
-        console.log('END of catalogBatchProcess: ', data_export)
-} // try end
+}
 
+  await client
+          .end()
+          .then(() => console.log('DB Client disconnected'))
+          .catch(err => {data_export = 'DB disconnection error 500:' + err.stack; console.error(data_export)})
 
 }; // handler end
