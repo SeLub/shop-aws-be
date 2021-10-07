@@ -60,26 +60,24 @@ try {
 
         const queryProduct = 'INSERT INTO products(title, description, price, imageid) VALUES($1, $2, $3, $4) RETURNING id';
         const valuesProduct = [title, description, price, imageid];
+        const resaultQueryProduct = await client.query(queryProduct, valuesProduct)
+                                            .then(() => console.log('Product data inserted to DB :', title, description, price, imageid))
+                                            .catch( err => { data_export = 'Error insert Product data to DB:' + err.stack; console.log(data_export); });
         const queryStock = 'INSERT INTO stocks(product_id, count) VALUES($1, $2)';
-        const {rows: products} = await client.query(queryProduct, valuesProduct)
-                                             .then(() => console.log('Product data inserted to DB :', title, description, price, imageid))
-                                             .catch( err => { data_export = 'Error insert Product data to DB:' + err.stack; console.log(data_export); });
-        const productId = products[0].id;
-        const countStock = [productId, count];
-        await client.query(queryStock, countStock)
+        await client.query(queryStock, [resaultQueryProduct.rows[0], count])
                     .then(() => console.log('Stock data inserted to DB'))
                     .catch(err => { data_export = 'Error insert Stock data to DB:' + err.stack; console.log(data_export); });
-        console.log("Product created: " + productId);
         await client.query('COMMIT');
         data_export = {
                         title,
                         description,
                         price,
                         imageid,
-                        count,
-                        id: productId,
+                        count
                       };
+        
         console.log('Product Just created: ', JSON.stringify(data_export));
+        
         })
 
 } catch (error) {
