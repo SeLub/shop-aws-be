@@ -31,16 +31,8 @@ export const handler = async event => {
   console.log(event);
 
 
-  try {
-
-
-  } catch (error) {
-    console.log('A new Client error occurred:', error);
-    return error;
-  }
-
-    const client = new Client(credentials);
-    client.on('error', err => {
+   const client = new Client(credentials);
+   client.on('error', err => {
                             data_export = 'DB Client Error 500:' + err.stack;
                             error_code = 500;
                             console.error('DB Client Error 500:', err.stack);
