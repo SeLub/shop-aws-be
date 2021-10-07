@@ -29,24 +29,41 @@ let data_export = {}, error_code = 200;
 export const handler = async event => {
 
   console.log(event);
-  
-  const client = new Client(credentials);
-  
-  client.on('error', err => {
+
+
+  try {
+    const client = new Client(credentials);
+    client.on('error', err => {
                             data_export = 'DB Client Error 500:' + err.stack;
                             error_code = 500;
                             console.error('DB Client Error 500:', err.stack);
                             })
-
-  await client
+      await client
           .connect()
           .then(() => console.log('Client connected'))
           .catch(err => {data_export = 'DB connection error:' + err.stack; error_code = 500})
 
-  await client
+  } catch (error) {
+    console.log('A new Client error occurred:', error);
+    return error;
+  }
+  
+  
+  try {
+    await client.query('BEGIN');
+    await client
           .query('SELECT products.*, stocks.count FROM products LEFT JOIN stocks ON products.id = stocks.product_id')
           .then(res => { data_export = res.rows; error_code = 200 })
           .catch(err => { data_export = 'DB query error 500:' + err.stack; error_code = 500})
+    await client.query('COMMIT');
+} catch (error) {
+        try {
+            await client.query('ROLLBACK');
+        } catch (rollbackError) { console.log('A rollback error occurred:', rollbackError); }
+    
+    console.log('An error occurred:', error);   
+    
+} 
 
   await client
           .end()
