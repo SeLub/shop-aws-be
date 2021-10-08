@@ -25,7 +25,7 @@ Self check:
 # __Summary Report__
 
 * Link to **/product-service/serverless.yml** - https://github.com/SeLub/shop-aws-be/blob/task-6/product-service/serverless.yml
-* Link to */import-service/serverless.yml*** - https://github.com/SeLub/shop-aws-be/blob/task-6/import-service/serverless.yml
+* Link to **/import-service/serverless.yml*** - https://github.com/SeLub/shop-aws-be/blob/task-6/import-service/serverless.yml
 
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
@@ -52,16 +52,14 @@ Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** 
 * после загрузки csv файла создаются записи в базе данных
 * **catalogBatchProcess** находится в сервисе **product-service** 
 
-Структкра CSV- файла:
+----
+
+Структура CSV- файла:
 
 title,description,price,count,imageid
 TestProduct from CSV 1,Test description in csv file 1,100,10,null 
 
-
-Все эти задачи реализованы в рамках создания нового сервиса import-service в рамках
-создания приложения микросервисной архитектуры.
-
-
+----
 
 ## __FrontEnd__
 
@@ -116,8 +114,3 @@ TestProduct from CSV 1,Test description in csv file 1,100,10,null
 #### Емайл для товара с ценой мене 500
 
 ![Messages in CloudWatch](email.png)
-
-
-## __Swagger documentation__
-
-https://app.swaggerhub.com/apis/SeLub/AWSShopAPI/1.0.0
