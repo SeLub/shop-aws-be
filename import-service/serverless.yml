@@ -77,13 +77,13 @@ resources:
     SNSSubscription:
       Type: AWS::SNS::Subscription
       Properties:
-        Endpoint: technokladez@gmail.com
+        Endpoint: orderkladez@gmail.com
         Protocol: email
         TopicArn:
           Ref: SNSTopic
         FilterPolicy:
-          status: 
-            - "In Progress"
+          price: 
+            - "HIGHT PRICE"
 
     SNSFinishParsingSubscription:
       Type: AWS::SNS::Subscription
@@ -93,8 +93,8 @@ resources:
         TopicArn:
           Ref: SNSTopic
         FilterPolicy:
-          status: 
-            - "Done"
+          price: 
+            - "LOW PRICE"
 
 plugins:
   - serverless-webpack  

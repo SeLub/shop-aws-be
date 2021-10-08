@@ -26,7 +26,7 @@ export const handler = async event => {
 };
 
 
-  let resault =[], stCode = '';
+  let resault =[], stCode = '', number_of_records=0;
   
   try {
     for (const record of event.Records) {
@@ -39,10 +39,14 @@ export const handler = async event => {
         .on('data', (csvline) => { 
           console.log(csvline); 
           resault.push(csvline);
+          number_of_records +=1;
           sendMessageToSQS(sqs, JSON.stringify(csvline));
            }) 
         .on('error', (error) => { console.log(error); stCode = 500; resault = null; })
-        .on('end', () => { stCode = 200; console.log('Parsing and sending to SQS are COMPLETED.') } )
+        .on('end', () => { 
+                          stCode = 200; 
+                          console.log('Parsing and sending to SQS are COMPLETE.');
+                          sendMessageToSQS(sqs, JSON.stringify({ 'parsed' : number_of_records })) } )
 
       let paramCopy = {
           Bucket: BUCKET, 
