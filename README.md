@@ -57,7 +57,6 @@ Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** 
 Структура CSV- файла:
 
 title,description,price,count,imageid
-TestProduct from CSV 1,Test description in csv file 1,100,10,null 
 
 ----
 
