@@ -12,15 +12,15 @@ export const handler = async event => {
   const sendMessageToSQS = async (sqs, messageBody) => {
   await sqs.sendMessage(
     {
-      QueueUrl: process.env.IMPORT_SQS,
+      QueueUrl: process.env.SQS_URL,
       MessageBody: messageBody,
     },
     (error, data) => {
       if (error) {
-        console.log('SQS error', error);
+        console.log('SQS error: ', error);
         throw Error(error);
       }
-      console.log(`Send message:`, JSON.stringify(data));
+      console.log(`Send message to SQS:`, JSON.stringify(data));
     },
   );
 };
