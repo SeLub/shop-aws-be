@@ -24,16 +24,17 @@ Self check:
 
 # __Summary Report__
 
-Link to **serverless.yml** - https://github.com/SeLub/shop-aws-be/blob/task-6/import-service/serverless.yml
+Link to **/product-service/serverless.yml** - https://github.com/SeLub/shop-aws-be/blob/task-6/product-service/serverless.yml
+Link to */import-service/serverless.yml*** - https://github.com/SeLub/shop-aws-be/blob/task-6/import-service/serverless.yml
 
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
-Cr.1 | File **serverless.yml** contains configuration for **catalogBatchProcess** function   | Lines 127-135 
-Cr.2 | File **serverless.yml** contains policies to allow lambda **catalogBatchProcess** function to interact with SNS and SQS | Line 132 - 135 and 27 - 51
-Cr.3 | File **serverless.yml** contains configuration for SQS **catalogItemsQueue** | Lines 67 - 70
-Cr.4 | File **serverless.yml** contains configuration for SNS Topic **createProductTopic** and email subscription | Lines 72 - 97
-Ad.1 | **catalogBatchProcess** lambda is covered by **unit** tests | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.js
-Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** | Lines 84 - 86 and 95 - 97
+Cr.1 | File **serverless.yml** contains configuration for **catalogBatchProcess** function   | Lines 128-136 
+Cr.2 | File **serverless.yml** contains policies to allow lambda **catalogBatchProcess** function to interact with SNS and SQS | Line 47 - 57
+Cr.3 | File **serverless.yml** contains configuration for SQS **catalogItemsQueue** | Lines 39 - 40, 61 - 64
+Cr.4 | File **serverless.yml** contains configuration for SNS Topic **createProductTopic** and email subscription | Lines 41 - 42, 66 - 91
+Ad.1 | **catalogBatchProcess** lambda is covered by **unit** tests | https://github.com/SeLub/shop-aws-be/blob/task-6/product-service/functions/catalogBatchProcess/catalogBatchProcess.test.js
+Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** | Lines 78 - 80 and 89 - 91
 
 ## __BackEnd__
 
@@ -44,9 +45,17 @@ Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** 
 * лямбда **importFileParser**, загружает csv в S3 Bucket **task-5-csv-uploaded** и отсылает сообщения в SQS очередь **catalogItemsQueue**
 
 * при деплоее автоматически создаётся SQS очередь **catalogItemsQueue**, которая является тригерром для лямбды **catalogBatchProcess**
-* при деплоее автоматически создаётся лямбда **catalogBatchProcess**, которая получает сообщения из SQS очереди **catalogItemsQueue** по 5 штук и сохраняет их в базе данных
+* при деплоее автоматически создаётся лямбда **catalogBatchProcess**, которая получает сообщения из SQS очереди **catalogItemsQueue** до 5 штук за раз и сохраняет их в базе данных
 
-* при деплоее автоматически создаётся SNS очередь **catalogItemsQueue**, которая отсылает сообщения на e-mail при парсинге товаров из csv
+* при деплоее автоматически создаётся SNS очередь **catalogItemsQueue**, которая отсылает сообщения на e-mail при парсинге товаров из csv, при этом происходит сортировка сообщений по цене. Цена равно 500$
+
+* после загрузки csv файла создаются записи в базе данных
+
+Структкра CSV- файла:
+
+title,description,price,count,imageid
+TestProduct from CSV 1,Test description in csv file 1,100,10,null 
+
 
 Все эти задачи реализованы в рамках создания нового сервиса import-service в рамках
 создания приложения микросервисной архитектуры.
@@ -56,15 +65,13 @@ Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** 
 ## __FrontEnd__
 
 
-Данные во FE отобраажаются от API, который в свою очередь берёт их из базы данных RDS AWS.
-Картинки хранятся в специально созданнном S3 Bucket. Для него настроен CloudFront.
-Рядом с ценой каждого товара выводится остаток на складе (stock).
-Для товара у которого нет картинки используется стандартная картинка-заглушка.
+Данные во FE отобраажаются от API, который в свою очередь берёт их из базы данных RDS AWS. Картинки хранятся в специально созданнном S3 Bucket. Для него настроен CloudFront. Для товара у которого нет картинки используется стандартная картинка-заглушка. Рядом с ценой каждого товара выводится остаток на складе (stock).
 
 В админке реализовано: 
 - выводится список товаров
-- загрузка CSV файла со списком товаров на бэкед (в специально созданный S3 Bucket).
-
+- у каждого товара выводится изображение
+- загрузка CSV файла со списком товаров на бэкед (в специально созданный S3 Bucket)
+- исправлены "врождённые" ошибки (cart.tsx)
 
 
 * FrontEnd: https://d3ph6tvz43noms.cloudfront.net/ 
@@ -97,9 +104,17 @@ Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** 
 
 ![Messages in CloudWatch](CloudWatch.png)
 
+#### Записи CloudWatch от catalogBatchProcess.
 
+![Messages in CloudWatch](cloudwatch.png)
 
-# ..Продолжение следует .......
+#### Созданные товары главной странице нашего сайта
+
+![Messages in CloudWatch](frontend.png)
+
+#### Емайл для товара с ценой мене 500
+
+![Messages in CloudWatch](email.png)
 
 
 ## __Swagger documentation__
