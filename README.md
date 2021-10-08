@@ -24,8 +24,8 @@ Self check:
 
 # __Summary Report__
 
-Link to **/product-service/serverless.yml** - https://github.com/SeLub/shop-aws-be/blob/task-6/product-service/serverless.yml
-Link to */import-service/serverless.yml*** - https://github.com/SeLub/shop-aws-be/blob/task-6/import-service/serverless.yml
+* Link to **/product-service/serverless.yml** - https://github.com/SeLub/shop-aws-be/blob/task-6/product-service/serverless.yml
+* Link to */import-service/serverless.yml*** - https://github.com/SeLub/shop-aws-be/blob/task-6/import-service/serverless.yml
 
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
@@ -50,6 +50,7 @@ Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** 
 * при деплоее автоматически создаётся SNS очередь **catalogItemsQueue**, которая отсылает сообщения на e-mail при парсинге товаров из csv, при этом происходит сортировка сообщений по цене. Цена равно 500$
 
 * после загрузки csv файла создаются записи в базе данных
+* **catalogBatchProcess** находится в сервисе **product-service** 
 
 Структкра CSV- файла:
 
