@@ -1,24 +1,12 @@
 import { Client } from 'pg';
 import AWS from 'aws-sdk';
+import { handleResponse } from '../../libs/handleResponse';
+import { httpStatus } from '../../libs/httpStatus';
+import {createNewProduct} from '../../models/createNewProduct';
 
 export const handler = async event => {
   
-// const { PG_HOST, PG_PORT, PG_DATABASE, PG_USERNAME, PG_PASSWORD } = process.env;
-// 
-// const credentials = {
-//   user: PG_USERNAME,
-//   host: PG_HOST,
-//   database: PG_DATABASE,
-//   password: PG_PASSWORD,
-//   port: PG_PORT,
-//   ssl: {
-//     rejectUnauthorized: false,
-//   },
-//   connectionTimeoutMillis: 5000,
-// };
-// 
-// let data_export = {};
-
+const { SNS_ARN, LOW_PRICE_LIMIT, HIGHT_PRICE, LOW_PRICE } = process.env;
 
 async function asyncForEach(array, callback) {
   for (let index = 0; index < array.length; index++) {
@@ -26,72 +14,57 @@ async function asyncForEach(array, callback) {
   }
 }
 
-
-
-//const client = new Client(credentials);
-//  
-//client.on('error', err => {
-//                            data_export = 'DB Client Error:' + err.stack;
-//                            console.error(data_export);
-//                            })
-
-//await client
-//          .connect()
-//          .then(() => console.log('Client connected'))
-//          .catch(err => { data_export = 'DB connection error:' + err.stack; console.error(data_export) })
-
   
 await asyncForEach(event.Records, async (record) => {
 
+try {
 
-const messages = JSON.parse(record.body);
+      const messages = JSON.parse(record.body);
 
-      console.log(messages);
+   //   console.log(messages);
 
-      const typePrice = (messages.price > 500) ? 'HIGHT PRICE' : 'LOW PRICE';
+      const typePrice = messages.price > process.env.LOW_PRICE_LIMIT ? process.env.LOW_HIGHT_PRICE : process.env.LOW_PRICE;
 
-      const {title, description, price, count} = messages;
+      const {title, description, price, count, imageid} = messages;
    
-      //const resultCreateProduct = await createNewProduct(title, description, price, count);
+      const resultCreateProduct = await createNewProduct(title, description, price, count, imageid);
 
-      // console.log(resultCreateProduct);
+      console.log(resultCreateProduct);
 
-let params = {
-        
-        Subject: `Product ${messages.title} added to db. Send ${typePrice} notification`,
-
-        Message: JSON.stringify(messages),
-        
-        TopicArn: 'arn:aws:sns:eu-central-1:914773708367:createProductTopic',
-        
-        MessageAttributes: {
-        
-          Price: {
-        
-            DataType: 'String',
-        
-            StringValue: typePrice
-          },
-        }
-      };
+      let params = {
+              
+                Subject: `Product ${messages.title} added to db. Send ${typePrice} notification`,
+      
+                Message: JSON.stringify(messages),
+              
+                TopicArn: process.env.SNS_ARN,
+              
+                MessageAttributes: {
+              
+                Price: {
+              
+                    DataType: 'String',
+              
+                    StringValue: typePrice
+                    },
+                }
+              };
 
 // Create promise and SNS service object
-let publishTextPromise = new AWS.SNS({region: 'eu-central-1'}).publish(params).promise();
+let publishTextPromise = new AWS.SNS({apiVersion: '2010-03-31', region: 'eu-central-1'}).publish(params).promise();
 
 // Handle promise's fulfilled/rejected states
 publishTextPromise
-  .then(
-    function(data) {
-      console.log(`Product ${messages.title} added to database. Notification ${typePrice} sent to the topic ${params.TopicArn}`);
-      console.log("MessageID is " + data.MessageId);
-    }).catch(
-    
-    function(err) {
-    console.error(err, err.stack);
-  });
+ .then( data => {
+   console.log(`Product ${messages.title} added to database. Notification ${typePrice} sent to the topic ${params.TopicArn}`)
+   console.log("MessageID is " + data.MessageId) })
+ .catch( error => console.log(error));
 
 
-
+return handleResponse("done", httpStatus.OK);
+  } catch (error) {
+    return handleResponse(error, httpStatus.SERVER_ERROR);
+  }
 
 
 
@@ -110,13 +83,5 @@ publishTextPromise
 //     console.log (title, description, price, count, imageid);
 
               
-        })
-
-
-
-//await client
-//          .end()
-//          .then(() => console.log('DB Client disconnected'))
-//          .catch(err => {data_export = 'DB disconnection error 500:' + err.stack; console.error(data_export)})
-
-}; // handler end
+        });
+}; 
