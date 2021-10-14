@@ -27,7 +27,7 @@ Self check:
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
 Cr.1 | Link to serverless.yml with importProductsFile function   | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/serverless.yml
-Cr.2 | SignedURL to upload CSV in S3 by importProductsFile lambda | https://pipwbmgctg.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
+Cr.2 | SignedURL to upload CSV in S3 by importProductsFile lambda | https://i4j8swnir7.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
 Cr.3 | Try youself by sending CSV and check errors in Chrome console | https://d3ph6tvz43noms.cloudfront.net/admin/products
 Cr.4 | Link to importFileParser. Link to serverless.yml see in Cr.1 | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importFileParser/importFileParser.js
 Ad.1 | async/await is used in importProductsFile | https://github.com/SeLub/shop-aws-be/blob/task-5/import-service/functions/importProductsFile/importProductsFile.js
