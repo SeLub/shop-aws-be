@@ -1,0 +1,20 @@
+service: authorization-service
+frameworkVersion: '2'
+useDotenv: true
+
+plugins:
+  - serverless-webpack
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: eu-central-1
+
+functions:
+  hello:
+    handler: functions/basicAuthorizer/basicAuthorizer.handler
