@@ -42,11 +42,11 @@ Self check:
 Task   | Description | Method | URL 
 -------|-------------|--------|-----
 Task 4.1 | __SQL script__ with exemple data | GET | https://github.com/SeLub/shop-aws-be/blob/task-4/product-service/sql_scripts/products_and_stocks.sql
-Task 4.2 | __getProductsList__ get ALL products from DB | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products
-Task 4.2 | __getProductsById__ get product from DB by id | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/830be059-d085-4f6f-976e-d5bafa3e1162
-Ad.1 | __getProductsById__ get product with __WRONG id__ | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/830be059-d085-4f6f-976e-d5bafa3e1165
-Ad.2 | getProductsById get product with __invalid id__ | GET | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/777
-Task 4.3 | __createProduct__ POST to add product to DB | POST | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/
+Task 4.2 | __getProductsList__ get ALL products from DB | GET | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products
+Task 4.2 | __getProductsById__ get product from DB by id | GET | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products/89da7309-e5ed-48a4-b4e6-ae47c947ae12
+Ad.1 | __getProductsById__ get product with __WRONG id__ | GET | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products/830be059-d085-4f6f-976e-d5bafa3e1165
+Ad.2 | getProductsById get product with __invalid id__ | GET | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products/777
+Task 4.3 | __createProduct__ POST to add product to DB | POST | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products/
 
 ### Скриншоты 
 
