@@ -1,8 +1,8 @@
-# __Task 6__
+# __Task 7__
 
-Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/main/task6-async-services-integration-sqs-sns/task.md)
+Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/new-tasks/task7-lambda+cognito-authorization/task.md)
 
-Task due date / deadline date - 04.10.21 / 04.10.21 23:59(GMT+3)
+Task due date / deadline date - 16.10.21 / 17.10.21 23:59(GMT+3)
 
 Self check:
  
@@ -11,30 +11,50 @@ Self check:
 -----------
 ## __Evaluation criteria__
 
-- [x] Cr.1: **1** - File **serverless.yml** contains configuration for **catalogBatchProcess** function
-- [x] Cr.2: **2** - File **serverless.yml** contains policies to allow lambda **catalogBatchProcess** function to interact with SNS and SQS
-- [x] Cr.3: **3** - File **serverless.yml** contains configuration for SQS **catalogItemsQueue**
-- [x] Cr.4: **4** - File **serverless.yml** contains configuration for SNS Topic **createProductTopic** and email subscription
+- [x] Cr.1: **1** - **authorization-service** is added to the repo, has correct **basicAuthorizer** lambda and correct **serverless.yaml** file
+- [x] Cr.2: **3** - **import-service** serverless.yaml file has authorizer configuration for the **importProductsFile** lambda. Request to the **importProductsFile** lambda should work only with correct **authorization_token** being decoded and checked by **basicAuthorizer** lambda. Response should be in 403 HTTP status if access is denied for this user (invalid **authorization_token**) and in 401 HTTP status if Authorization header is not provided.
+- [x] Cr.3: **5** - update client application to send Authorization: Basic **authorization_token** header on import. Client should get **authorization_token** value from browser localStorage
+
 
 ## __Additional (optional) tasks__
 
-- [x] Ad.1: +1 **(All languages)** - **catalogBatchProcess** lambda is covered by **unit** tests
-- [x] Ad.2: +1 **(All languages)** - set a Filter Policy for SNS **createProductTopic** in **serverless.yml** (Create an additional email subscription and distribute messages to different emails depending on the filter for any product attribute)
+- [x] Ad.1: **+1** - Client application should display alerts for the responses in 401 and 403 HTTP statuses. This behavior should be added to the **nodejs-aws-fe-main/src/index.tsx** file
+
 ------------
 
 # __Summary Report__
 
-* Link to **/product-service/serverless.yml** - https://github.com/SeLub/shop-aws-be/blob/task-6/product-service/serverless.yml
-* Link to **/import-service/serverless.yml*** - https://github.com/SeLub/shop-aws-be/blob/task-6/import-service/serverless.yml
+* FrontEnd: https://d3ph6tvz43noms.cloudfront.net/ 
+
 
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
-Cr.1 | File **serverless.yml** contains configuration for **catalogBatchProcess** function   | Lines 128-136 
-Cr.2 | File **serverless.yml** contains policies to allow lambda **catalogBatchProcess** function to interact with SNS and SQS | Line 47 - 57
-Cr.3 | File **serverless.yml** contains configuration for SQS **catalogItemsQueue** | Lines 39 - 40, 61 - 64
-Cr.4 | File **serverless.yml** contains configuration for SNS Topic **createProductTopic** and email subscription | Lines 41 - 42, 66 - 91
-Ad.1 | **catalogBatchProcess** lambda is covered by **unit** tests | https://github.com/SeLub/shop-aws-be/blob/task-6/product-service/functions/catalogBatchProcess/catalogBatchProcess.test.js
-Ad.2 | set a Filter Policy for SNS **createProductTopic** in **serverless.yml** | Lines 78 - 80 and 89 - 91
+Cr.1 | **authorization-service** has correct **serverless.yaml** file | https://github.com/SeLub/shop-aws-be/blob/task-7/authorization-service/serverless.yml
+Cr.1 | **authorization-service** has correct **basicAuthorizer** lambda | https://github.com/SeLub/shop-aws-be/blob/task-7/authorization-service/functions/basicAuthorizer/basicAuthorizer.js
+Cr.2 | **import-service** serverless.yml file has authorizer configuration for the **importProductsFile** lambda. | https://github.com/SeLub/shop-aws-be/blob/task-7/import-service/serverless.yml
+Cr.2 | For Full Report - Look at the Screenshots Section. Valid Key: Authorization, Value: Basic c2VsdWI6VEVTVF9QQVNTV09SRA== | Link You can test by Postman: https://i4j8swnir7.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
+Cr.3 | update client application to send Authorization: Basic **authorization_token** header on import. Client should get **authorization_token** value from browser localStorage | https://github.com/SeLub/shop-aws-fe/pull/5/files
+Ad.1 | Client application should display alerts for the responses in 401 and 403 HTTP statuses | https://github.com/SeLub/shop-aws-fe/blob/task-7/src/index.tsx
+
+## Screenshots 
+
+------------
+#### **401 HTTP status - Unauthorized** -  не передан Authorization header 
+
+![401 HTTP status - Unauthorized](401.png)
+
+#### **202 HTTP status - Accepted** - передан Authorization header с валидным Token
+
+![202 HTTP status - Accepted](202.png)
+
+#### **403 HTTP status - Forbidden** - передан Authorization header с НЕ валидным Token.
+
+![403 HTTP status - Forbidden](403.png)
+
+#### **400 HTTP status - Bad Request** - передан Authorization header с валидным Token, но отсутствует обязательный параметр 'name'.
+
+![400 HTTP status - Bad Request](400.png)
+
 
 ## __BackEnd__
 
@@ -68,48 +88,10 @@ title,description,price,count,imageid
 В админке реализовано: 
 - выводится список товаров
 - у каждого товара выводится изображение
-- загрузка CSV файла со списком товаров на бэкед (в специально созданный S3 Bucket)
+- загрузка CSV файла со списком товаров на бэкед (в специально созданный S3 Bucket), только после авторизации
+- авторизация: токен берётся из локалсторидж, туда он сохраняется перед запросом axios
+- выводтся alert (сообщения в окнах) при ошибках.
 - исправлены "врождённые" ошибки (cart.tsx)
 
 
 * FrontEnd: https://d3ph6tvz43noms.cloudfront.net/ 
-
-
-## Screenshots 
-
-------------
-#### Файл CSV с данными товаров для вставки в базу данных.
-
-![ProductsCSV for download](productscsv.png)
-
-#### Файл CSV с данными товаров загружен Фронтендом без ошибок в S3 бакет.
-
-![ProductsCSV Downloaded by Frontend](downloadedcsv.png)
-
-#### Файл CSV с данными в S3 бакете в папке parsed. Парсинг файла состоялся и на следующем скрине мы увидим результат.
-
-![Parsed ProductsCSV in S3 Bucket](csvparsed.png)
-
-#### Парсинг файла CSV состоялся и мы отправили записи из файла в очередь SQS.
-
-![List of products records in SQS](sqsmessages.png)
-
-#### Так выглядит единичная запись в очереде SQS.
-
-![Single message in SQS](singleMessageInSQS.png)
-
-#### Также записи выводим в CloudWatch.
-
-![Messages in CloudWatch](CloudWatch.png)
-
-#### Записи CloudWatch от catalogBatchProcess.
-
-![Messages in CloudWatch](cloudwatch.png)
-
-#### Созданные товары главной странице нашего сайта
-
-![Messages in CloudWatch](frontend.png)
-
-#### Емайл для товара с ценой мене 500
-
-![Messages in CloudWatch](email.png)
