@@ -7,9 +7,13 @@ custom:
   webpack: 
     webpackConfig: './webpack.config.js'
     includeModules: true
+  dotenv:
+    required:
+      file: true
 
 plugins: 
-  - serverless-webpack 
+  - serverless-webpack
+  - serverless-dotenv-plugin
 
 package:
   individually: true
@@ -74,6 +78,10 @@ functions:
           path: /import
           method: get
           cors: true
+          authorizer:
+            type: TOKEN
+            authorizerId:
+              Ref: BasicAuthorizer          
           request:
             parameters:
               querystrings:
@@ -87,3 +95,65 @@ functions:
         rules:
           - prefix: uploaded/
           - suffix: .csv
+
+resources:
+  Resources:
+    BasicAuthorizer:
+      Type: AWS::ApiGateway::Authorizer
+      Properties:
+        Name: BasicAuthorizer
+        Type: TOKEN
+        AuthorizerResultTtlInSeconds: 300
+        IdentitySource: method.request.header.Authorization
+        ProviderARNs:
+          - Fn::ImportValue: BasicAuthorizerArn
+        RestApiId:
+          Ref: ApiGatewayRestApi
+
+    GatewayResponseDefault400:
+      Type: "AWS::ApiGateway::GatewayResponse"
+      Properties:
+        RestApiId:
+          Ref: "ApiGatewayRestApi"
+        ResponseType: DEFAULT_4XX
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseTemplates:
+          application/json: "{ \"data\": $context.error.messageString }"
+
+    GatewayResponseAccessDeied:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+        ResponseType: ACCESS_DENIED
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseTemplates:
+          application/json: "{ \"message\": $context.error.messageString }"
+
+    GatewayResponseUnauthorized:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+        ResponseType: UNAUTHORIZED
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseTemplates:
+          application/json: "{ \"message\": $context.error.messageString }"
+
+    GatewayResponseDefault500:
+      Type: "AWS::ApiGateway::GatewayResponse"
+      Properties:
+        RestApiId:
+          Ref: "ApiGatewayRestApi"
+        ResponseType: DEFAULT_5XX
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseTemplates:
+          application/json: "{ \"data\": $context.error.messageString }"
