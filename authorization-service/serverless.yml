@@ -2,10 +2,13 @@ service: authorization-service
 frameworkVersion: '2'
 useDotenv: true
 
-custom:
-  webpack:
-    webpackConfig: ./webpack.config.js
+custom: 
+  webpack: 
+    webpackConfig: './webpack.config.js'
     includeModules: true
+  dotenv:
+    required:
+      file: true
 
 plugins:
   - serverless-webpack
