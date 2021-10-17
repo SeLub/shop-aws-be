@@ -35,6 +35,10 @@ functions:
 
 resources:
   Outputs:
-    basicAuthorizerArn:
+    BasicAuthorizerArn:
+      Description: Export ARN of basicAuthorizer Lambda for import-service
       Value:
-        Fn::GetAtt: [BasicAuthorizerLambdaFunction, Arn]
+        !GetAtt BasicAuthorizerLambdaFunction.Arn
+      Export:
+        Name:
+          BasicAuthorizerArn
