@@ -18,7 +18,7 @@ provider:
   name: aws
   runtime: nodejs14.x
   lambdaHashingVersion: 20201221
-  stage: test
+  stage: dev
   region: eu-central-1
   apiGateway: 
     minimumCompressionSize: 1024
