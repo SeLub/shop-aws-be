@@ -32,7 +32,7 @@ Evaluation criteria   | Description | URL
 Cr.1 | **authorization-service** has correct **serverless.yaml** file | https://github.com/SeLub/shop-aws-be/blob/task-7/authorization-service/serverless.yml
 Cr.1 | **authorization-service** has correct **basicAuthorizer** lambda | https://github.com/SeLub/shop-aws-be/blob/task-7/authorization-service/functions/basicAuthorizer/basicAuthorizer.js
 Cr.2 | **import-service** serverless.yml file has authorizer configuration for the **importProductsFile** lambda. | https://github.com/SeLub/shop-aws-be/blob/task-7/import-service/serverless.yml
-Cr.2 | For Full Report - Look at the Screenshots Section. | Link You can test by Postman. Valid Key: Authorization, Value: Basic c2VsdWI6VEVTVF9QQVNTV09SRA==  https://i4j8swnir7.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
+Cr.2 | For Full Report - Look at the Screenshots Section. | Link You can test by Postman. Valid Key: Authorization, Value: Basic c2VsdWI6VEVTVF9QQVNTV09SRA==  https://od70lpymy5.execute-api.eu-central-1.amazonaws.com/dev/import/?name=products.csv
 Cr.3 | update client application to send Authorization: Basic **authorization_token** header on import. Client should get **authorization_token** value from browser localStorage | https://github.com/SeLub/shop-aws-fe/pull/5/files
 Ad.1 | Client application should display alerts for the responses in 401 and 403 HTTP statuses | https://github.com/SeLub/shop-aws-fe/blob/task-7/src/index.tsx
 
