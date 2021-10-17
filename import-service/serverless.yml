@@ -11,10 +11,9 @@ custom:
     required:
       file: true
 
-plugins: 
+plugins:
   - serverless-webpack
   - serverless-dotenv-plugin
-
 package:
   individually: true
 
@@ -30,10 +29,11 @@ provider:
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
     BUCKET: ${env:BUCKET}
-    SQS_URL: ${env:SQS_URL}
+    SQS_URL: 
+      !ImportValue SQSQueueLink
+    SQS_ARN:
+      !ImportValue SQSQueueArn
 
-  #    Fn::ImportValue:
-  #      !Sub cf:${env.PRODUCT_SERVICE}-${self:provider.stage}.SQSQueueArn
   iam:
     role:
       statements:
@@ -51,10 +51,7 @@ provider:
         - Effect: Allow
           Action: sqs:*
           Resource:
-            - ${env:SQS_ARN}
-
-  #          Fn::ImportValue:
-  #           !Sub cf:${env.PRODUCT_SERVICE}-${self:provider.stage}.SQSQueueLink
+            - !ImportValue SQSQueueArn
 
   s3:
     bucketOne:
@@ -79,9 +76,10 @@ functions:
           method: get
           cors: true
           authorizer:
+            name: basicAuthorizer
             type: TOKEN
-            authorizerId:
-              Ref: BasicAuthorizer          
+            arn: !ImportValue BasicAuthorizerArn
+            identitySource: method.request.header.Authorization 
           request:
             parameters:
               querystrings:
@@ -98,62 +96,33 @@ functions:
 
 resources:
   Resources:
-    BasicAuthorizer:
-      Type: AWS::ApiGateway::Authorizer
+    RestApi:
+      Type: AWS::ApiGateway::RestApi
       Properties:
-        Name: BasicAuthorizer
-        Type: TOKEN
-        AuthorizerResultTtlInSeconds: 300
-        IdentitySource: method.request.header.Authorization
-        ProviderARNs:
-          - Fn::ImportValue: BasicAuthorizerArn
-        RestApiId:
-          Ref: ApiGatewayRestApi
-
-    GatewayResponseDefault400:
-      Type: "AWS::ApiGateway::GatewayResponse"
+        Name: aws-shop
+    GatewayResponseDefault4XX:
+      Type: AWS::ApiGateway::GatewayResponse
       Properties:
-        RestApiId:
-          Ref: "ApiGatewayRestApi"
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
         ResponseType: DEFAULT_4XX
-        ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-        ResponseTemplates:
-          application/json: "{ \"data\": $context.error.messageString }"
-
-    GatewayResponseAccessDeied:
-      Type: 'AWS::ApiGateway::GatewayResponse'
-      Properties:
-        RestApiId:
-          Ref: 'ApiGatewayRestApi'
-        ResponseType: ACCESS_DENIED
-        ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-        ResponseTemplates:
-          application/json: "{ \"message\": $context.error.messageString }"
+        RestApiId: !Ref RestApi
 
     GatewayResponseUnauthorized:
-      Type: 'AWS::ApiGateway::GatewayResponse'
+      Type: AWS::ApiGateway::GatewayResponse
       Properties:
-        RestApiId:
-          Ref: 'ApiGatewayRestApi'
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
         ResponseType: UNAUTHORIZED
-        ResponseParameters:
-          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
-          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-        ResponseTemplates:
-          application/json: "{ \"message\": $context.error.messageString }"
+        RestApiId: !Ref RestApi
 
-    GatewayResponseDefault500:
-      Type: "AWS::ApiGateway::GatewayResponse"
+    GatewayResponseDefault5XX:
+      Type: AWS::ApiGateway::GatewayResponse
       Properties:
-        RestApiId:
-          Ref: "ApiGatewayRestApi"
-        ResponseType: DEFAULT_5XX
         ResponseParameters:
           gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
           gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
-        ResponseTemplates:
-          application/json: "{ \"data\": $context.error.messageString }"
+        ResponseType: DEFAULT_5XX
+        RestApiId: !Ref RestApi
