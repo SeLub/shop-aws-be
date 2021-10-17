@@ -11,7 +11,6 @@ custom:
 plugins: 
   - serverless-webpack 
 
-
 package:
   individually: true
   
@@ -19,7 +18,7 @@ provider:
   name: aws
   runtime: nodejs14.x
   lambdaHashingVersion: 20201221
-  stage: dev
+  stage: test
   region: eu-central-1
   apiGateway: 
     minimumCompressionSize: 1024
@@ -36,8 +35,6 @@ provider:
     SQSQueueName: ${env:SQSQueueName}
     SNSTopicName: ${env:SNSTopicName}
     BATCH_SQS_SIZE: ${env:BATCH_SQS_SIZE}
-    SQS_URL:
-      Ref: SQSQueue
     SNS_ARN:
       Ref: SNSTopic
 
@@ -47,9 +44,7 @@ provider:
         - Effect: Allow
           Action: sqs:*
           Resource:
-            Fn::GetAtt:
-              - SQSQueue
-              - Arn
+            !GetAtt SQSQueue.Arn
 
         - Effect: Allow
           Action: sns:*
@@ -57,6 +52,19 @@ provider:
             Ref: SNSTopic
 
 resources:
+  Outputs:
+    SQSQueueUrl:
+      Value:
+        Ref: SQSQueue
+      Export:
+        Name: SQSQueueLink
+
+    SQSQueueArn:
+      Value:
+        Fn::GetAtt: [ SQSQueue, Arn ]
+      Export:
+        Name: SQSQueueArn
+
   Resources:
     SQSQueue:
       Type: AWS::SQS::Queue
@@ -89,17 +97,6 @@ resources:
         FilterPolicy:
           Price: 
             - ${env:HIGHT_PRICE}
-
-outputs: 
-  SQSQueueLink:
-    Value:
-      Ref: SQSQueue
-  SQSQueueArn:
-    Value:
-      Fn::GetAtt:
-        - SQSQueue
-        - Arn
-
 functions:
   getProductsList:
     handler: functions/getProductsList/getProductsList.handler
@@ -131,6 +128,4 @@ functions:
      - sqs:
          batchSize: ${env:BATCH_SQS_SIZE}
          arn:
-           Fn::GetAtt:
-             - SQSQueue
-             - Arn
+           !GetAtt SQSQueue.Arn
