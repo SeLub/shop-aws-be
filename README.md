@@ -9,4 +9,4 @@ Done | Task-3 | https://github.com/SeLub/shop-aws-be/tree/task-3
 Done | Task-4 | https://github.com/SeLub/shop-aws-be/tree/task-4
 Done | Task-5 | https://github.com/SeLub/shop-aws-be/tree/task-5
 Done | Task-6 | https://github.com/SeLub/shop-aws-be/tree/task-6
-In Progress... | Task-7 | https://github.com/SeLub/shop-aws-be/tree/task-7
+Done | Task-7 | https://github.com/SeLub/shop-aws-be/tree/task-7
