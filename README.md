@@ -26,8 +26,8 @@ Self check:
 
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
-Cr.1 | Dockerfile is prepared | https://github.com/SeLub/rs-cart-api/blob/simple-deploy/Dockerfile
-Cr.2 | Dockerfile is optimized | https://github.com/SeLub/rs-cart-api/blob/simple-deploy/Dockerfile
+Cr.1 | Dockerfile is prepared (non-optimized) | https://github.com/SeLub/shop-aws-cart-api/blob/feat/nonopimized-deploy-from-registry/Dockerfiles/Dockerfile
+Cr.2 | Dockerfile is optimized (optimized)| https://github.com/SeLub/shop-aws-cart-api/blob/feat/deploy-from-registry/Dockerfiles/Dockerfile
 Cr.3 | At least 2 big directories should be included in .dockerignore | https://github.com/SeLub/rs-cart-api/blob/simple-deploy/.dockerignore
 Cr.4 | Folders are added to .dockerignore, with explanations. | https://github.com/SeLub/rs-cart-api/blob/simple-deploy/.gitignore
 Cr.5 | A PR with updates in your FE repository | https://github.com/SeLub/shop-aws-fe/pull/6/files
