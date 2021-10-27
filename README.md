@@ -60,9 +60,10 @@ Cr.5 | A link from API PATH to api/profile/cart | http://selub-cart-api.eu-centr
 # Дополнительно 
 
 Репозиторий Cart API service https://github.com/SeLub/shop-aws-cart-api
-В ветке feat/nonopimized-deploy-from-registry находится НЕоптимизированный имидж. Если В приложении выполнить npm run publish:image, то в результате будет создан не оптимизированный image размером **440.54 MB**
+В ветке feat/nonopimized-deploy-from-registry находится НЕоптимизированный имидж. Если В приложении выполнить npm run publish:image, то в результате будет создан не оптимизированный 
+image размером **440.54 MB**.
 
-Далее можно перейти в ветку feat/deploy-from-registry и выполнить команду npm run publish:image. В результате будет создан оптимизированный image размером **20.21**
+Далее можно перейти в ветку feat/deploy-from-registry и выполнить команду npm run publish:image. В результате будет создан оптимизированный image размером **20.21**.
 -----
 
 ## Создание приложения
