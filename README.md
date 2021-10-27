@@ -27,11 +27,10 @@ Self check:
 Evaluation criteria   | Description | URL 
 -------|--------------|-----
 Cr.1 | Dockerfile is prepared (non-optimized) | https://github.com/SeLub/shop-aws-cart-api/blob/feat/nonopimized-deploy-from-registry/Dockerfiles/Dockerfile
-Cr.2 | Dockerfile is optimized (optimized)| https://github.com/SeLub/shop-aws-cart-api/blob/feat/deploy-from-registry/Dockerfiles/Dockerfile
-Cr.3 | At least 2 big directories should be included in .dockerignore | https://github.com/SeLub/rs-cart-api/blob/simple-deploy/.dockerignore
-Cr.4 | Folders are added to .dockerignore, with explanations. | https://github.com/SeLub/rs-cart-api/blob/simple-deploy/.gitignore
-Cr.5 | A PR with updates in your FE repository | https://github.com/SeLub/shop-aws-fe/pull/6/files
-Cr.5 | A front-end app which makes proper API calls to Cart service | https://d3ph6tvz43noms.cloudfront.net/
+Cr.2 | Dockerfile is optimized | https://github.com/SeLub/shop-aws-cart-api/blob/feat/deploy-from-registry/Dockerfiles/Dockerfile
+Cr.3 | At least 2 big directories should be included in .dockerignore | https://github.com/SeLub/shop-aws-cart-api/blob/feat/deploy-from-registry/.dockerignore
+Cr.4 | GitHub Cart API service | https://github.com/SeLub/shop-aws-cart-api
+Cr.5 | A PR with updates in FE repository | https://github.com/SeLub/shop-aws-fe/pull/6/files
 Cr.5 | A link from API PATH to api/profile/cart | http://selub-cart-api-dev2.eu-central-1.elasticbeanstalk.com/api/profile/cart
 
 ## Screenshots 
@@ -57,3 +56,29 @@ Cr.5 | A link from API PATH to api/profile/cart | http://selub-cart-api-dev2.eu-
 
 ![deprecated](deprecated.png)
 ![supported](supported.png)
+
+# Дополнительно 
+
+Репозиторий Cart API service https://github.com/SeLub/shop-aws-cart-api
+В ветке feat/nonopimized-deploy-from-registry находится НЕоптимизированный имидж. Если В приложении выполнить npm run publish:image, то в результате будет создан не оптимизированный image размером **440.54 MB**
+
+Далее можно перейти в ветку feat/deploy-from-registry и выполнить команду npm run publish:image. В результате будет создан оптимизированный image размером **20.21**
+-----
+
+## Создание приложения
+
+eb init -r eu-central-1
+
+Enter Application Name: shop-aws-cart-api
+It appears you are using Docker. Is this correct? Y
+
+Select a platform branch.
+1) Docker running on 64bit Amazon Linux 2
+2) Multi-container Docker running on 64bit Amazon Linux (Deprecated)
+3) Docker running on 64bit Amazon Linux (Deprecated)
+
+Выбрать платформу Linux 2 - пункт 1. Это будет не **Deprecated**, а **Supported**
+
+Do you wish to continue with CodeCommit? (Y/n) n
+Do you want to set up SSH for your instances? (Y/n) n
+
