@@ -31,7 +31,7 @@ Cr.2 | Dockerfile is optimized | https://github.com/SeLub/shop-aws-cart-api/blob
 Cr.3 | At least 2 big directories should be included in .dockerignore | https://github.com/SeLub/shop-aws-cart-api/blob/feat/deploy-from-registry/.dockerignore
 Cr.4 | GitHub Cart API service | https://github.com/SeLub/shop-aws-cart-api
 Cr.5 | A PR with updates in FE repository | https://github.com/SeLub/shop-aws-fe/pull/6/files
-Cr.5 | A link from API PATH to api/profile/cart | http://selub-cart-api-dev2.eu-central-1.elasticbeanstalk.com/api/profile/cart
+Cr.5 | A link from API PATH to api/profile/cart | http://selub-cart-api.eu-central-1.elasticbeanstalk.com/api/profile/cart
 
 ## Screenshots 
 
