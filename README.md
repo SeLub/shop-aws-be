@@ -77,7 +77,7 @@ Select a platform branch.
 2) Multi-container Docker running on 64bit Amazon Linux (Deprecated)
 3) Docker running on 64bit Amazon Linux (Deprecated)
 
-Выбрать платформу Linux 2 - пункт 1. Это будет не **Deprecated**, а **Supported**
+**Выбрать платформу Linux 2** - пункт 1. Это будет не **Deprecated**, а **Supported**
 
 Do you wish to continue with CodeCommit? (Y/n) n
 Do you want to set up SSH for your instances? (Y/n) n
