@@ -41,8 +41,23 @@ Service | Method | URL | Action |
 product-service | GET | product | get Products List
 product-service | GET | product/?id={id} | get Product By Id
 product-service | POST | product | create Product
-product-service | DELETE | product/?id={id} | delete All Products
+
+* product-service | DELETE | product/?id={id} | delete All Products
 * product-service | PUT | product/?id={id} | update Products By Id
 * product-service | DELETE | product | delete All Products
 
 ## Screenshots 
+
+------------
+
+#### **Express Server** -  получаем список всех товаров через **bff**
+
+![Get All Products](express_all.png)
+
+#### **Express Server** -  получаем товар по id через **bff**
+
+![Get Product by ID](express_id.png)
+
+#### **Express Server** -  создаём товар через **bff**
+
+![Create Product](express_create.png)
