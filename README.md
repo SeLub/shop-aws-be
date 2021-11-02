@@ -60,10 +60,9 @@ Cr.5 | A link from API PATH to api/profile/cart | http://selub-cart-api.eu-centr
 # Дополнительно 
 
 Репозиторий Cart API service https://github.com/SeLub/shop-aws-cart-api
-В ветке feat/nonopimized-deploy-from-registry находится НЕоптимизированный имидж. Если В приложении выполнить npm run publish:image, то в результате будет создан не оптимизированный 
-image размером **440.54 MB**.
 
-Далее можно перейти в ветку feat/deploy-from-registry и выполнить команду npm run publish:image. В результате будет создан оптимизированный image размером **20.21**.
+В ветке feat/nonopimized-deploy-from-registry находится НЕоптимизированный имидж. Если В приложении выполнить npm run publish:image, то в результате будет создан не оптимизированный image размером __440.54 MB__. Далее можно перейти в ветку feat/deploy-from-registry и выполнить команду npm run publish:image. В результате будет создан оптимизированный image размером __20.21 MB__.
+
 -----
 
 ## Создание приложения
@@ -78,7 +77,7 @@ Select a platform branch.
 2) Multi-container Docker running on 64bit Amazon Linux (Deprecated)
 3) Docker running on 64bit Amazon Linux (Deprecated)
 
-Выбрать платформу Linux 2 - пункт 1. Это будет не **Deprecated**, а **Supported**
+**Выбрать платформу Linux 2** - пункт 1. Это будет не **Deprecated**, а **Supported**
 
 Do you wish to continue with CodeCommit? (Y/n) n
 Do you want to set up SSH for your instances? (Y/n) n
