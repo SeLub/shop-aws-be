@@ -21,43 +21,52 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
-app.post('/product', (request, response) =>{
 
-  	  axios.post(PRODUCT + '/products', request.body)
-    	.then(function (data) {
-  	  		response.status(200).send(data.data);
-    	})
-    	.catch(function (error) {
-      		response.status(status(502)).send(error)
-  		});
+app.all('/*', (req, res) => {
 
-});
+console.log(req.body)
 
+	const recipient = req.originalUrl.split('/')[1];
+	let recipientURL = process.env[recipient.toUpperCase()];	
 
-app.get('/product', function(req, res){
+	if (recipientURL) {
 
-	if (!req.query.id) {
-	  
-	  axios.get(PRODUCT + '/products')
-		.then(function (data) {
-			res.status(200).send(data.data)
-		})
-		.catch(function (error) {
-			res.status(status(502)).send({ Error: 'Cannot process request: GET All Products'})
-		});
+		if (req.query.id) { recipientURL = recipientURL +'/'+req.query.id; }
+
+		let axiosConfig = {
+				method: req.method,
+				url: recipientURL
+				}; 
+
+    	if (req.body && Object.keys(req.body).length > 0) {
+
+			axiosConfig.data = req.body;
+			
+		} else if (req.body && Object.keys(req.body).length == 0){
+
+			delete axiosConfig.data;
+
+		};
+
+		axios(axiosConfig)
+			.then(function(response) {
+				res.json(response.data);
+			})
+			.catch (error =>{
+				if (error.response) {
+					const { status,	data } = error.response;
+					res.status(status).json(data);
+				} else {
+					res.status(500).json({error: error.message});			
+				}
+			});
+
 
 	} else {
-	  let id = req.query.id; 
-	  let url = PRODUCT + '/products/' + id;
-	  axios.get(url).then(function(data) {
-			res.status(200).send(data.data)
-		}).catch(function(error) {
-			res.status(status(502)).send({ Error: `Cannot process request: GET Product by ID \n ${error}`})
-		});
+		res.status(502).json({error: 'Cannot process request'});
 	};
-
-});
+})
 
 app.listen (PORT, ()=>{
-	console.log(`Server is running on port ${PORT}.\n recipientURL for CART service: ${CART} \n recipientURL for PRODUCT service: ${PRODUCT}`)
+	console.log(`Server is running on port ${PORT}.`)
 });
