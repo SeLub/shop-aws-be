@@ -31,25 +31,23 @@ app.all('/*', (req, res) => {
 	const recipient = req.originalUrl.split('/')[1];
 
 	let recipientURL = process.env[recipient.toUpperCase()];
+
 	if (req.query.id) { recipientURL = recipientURL +'/'+req.query.id; }
 
 	if (recipient === 'product' && !req.query.id && req.method === 'GET') {
 			
 		value = myCache.get( 'getProductsList' );
 
-		console.log(value)
-
 			if ( value === undefined ){
-
-
-
 
 				if (recipientURL) {
 
 					makeAxios(req, res, recipientURL)
 						
 						.then(data => {
+
         					value = myCache.set( 'getProductsList', data );
+
 								if (value) {console.log(`Cache has been set to: \n ${data}.`)}
 	    					})
 
@@ -67,54 +65,64 @@ app.all('/*', (req, res) => {
 			};
 
 	} else {
+
 			if (recipientURL) {
+
 				makeAxios(req, res, recipientURL)
+
 					.then(data => {
+
         				console.log('Request received!', data );
     				})
+
     				.catch(err => console.log(err))
 
 			} else {
+
 				res.status(502).json({error: 'Cannot process request'});
+
 			};
 	}; 
-	
-
-
 })
 
 app.listen (PORT, ()=>{
+
 	console.log(`Server is running on port ${PORT}.`)
+
 });
 
 
-
-
-
-
-
-
-
-
-
-			const makeAxios = (req, res, recipientURL) => {
+const makeAxios = (req, res, recipientURL) => {
 		
-				let axiosConfig = { method: req.method, url: recipientURL };
+	let axiosConfig = { method: req.method, url: recipientURL };
 		
-				if (req.body && Object.keys(req.body).length > 0) { axiosConfig.data = req.body;		
-				} else if (req.body && Object.keys(req.body).length == 0) {	delete axiosConfig.data; };
+	if (req.body && Object.keys(req.body).length > 0) { axiosConfig.data = req.body; } 
+
+	else if (req.body && Object.keys(req.body).length == 0) {	delete axiosConfig.data; };
 		
-				return axios(axiosConfig)
-					.then((response) => {
-										res.json(response.data);
-										return response.data;
-										})
-					.catch (error =>{
-						if (error.response) {
-							const { status,	data } = error.response;
-							res.status(status).json(data);
-						} else {
-							res.status(500).json({error: error.message});			
-						}
-					});
-			}; //makeAxios
+	return axios(axiosConfig)
+
+			.then((response) => {
+
+							res.json(response.data);
+
+							return response.data;
+
+							})
+
+			.catch (error =>{
+
+				if (error.response) {
+
+					const { status,	data } = error.response;
+
+					res.status(status).json(data);
+
+				} else {
+
+					res.status(500).json({error: error.message});			
+				};
+			
+			});
+			
+}; //makeAxios
