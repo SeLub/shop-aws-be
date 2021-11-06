@@ -6,7 +6,7 @@ Task due date / deadline date - 05.11.21 / 06.11.21 23:59(GMT+3)
 
 Self check:
  
- TOTAL POINTS - _** 5 points**_
+ TOTAL POINTS - _** 6 points**_
  
 -----------
 ## __Evaluation criteria__
@@ -32,10 +32,17 @@ Cr.1 | Link to the **repo**.  You can clone **repo**, check env variables in .en
 Cr.2 | Dockerfile is optimized | https://github.com/SeLub/shop-aws-cart-api/blob/feat/deploy-from-registry/Dockerfiles/Dockerfile
 Cr.3 | At least 2 big directories should be included in .dockerignore | https://github.com/SeLub/shop-aws-cart-api/blob/feat/deploy-from-registry/.dockerignore
 Cr.4 | GitHub Cart API service | https://github.com/SeLub/shop-aws-cart-api
-Cr.5 | A PR with updates in FE repository | https://github.com/SeLub/shop-aws-fe/pull/6/files
-Cr.5 | A link from API PATH to api/profile/cart | http://selub-cart-api.eu-central-1.elasticbeanstalk.com/api/profile/cart
+Ad.1 | To check cash: !create product, then open frontend url (you ) | https://github.com/SeLub/shop-aws-fe/pull/6/files
+Ad.2 | I did not implement **NestJS**  | -
 
-### API
+### How to check cash
+
+- create product
+- open FE
+- send req by POSTMAN
+
+
+### API Table
 Service | Method | URL | Action |
 --------|--------|-----|--------|
 product-service | GET | product | get Products List
