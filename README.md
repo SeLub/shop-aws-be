@@ -27,8 +27,8 @@ Self check:
 
 
 Evaluation criteria   | Description | URL 
--------|--------------|-----
-Cr.1 | Dockerfile is prepared (non-optimized) | https://github.com/SeLub/shop-aws-cart-api/blob/feat/nonopimized-deploy-from-registry/Dockerfiles/Dockerfile
+----------------------|-------------|-----
+Cr.1 | Link to the **repo**.  You can clone **repo**, check env varables in .env and star app by **npm start**.  Then you can make requests by POSTMAN. Resaults should be like on screenshots below. | https://github.com/SeLub/shop-aws-be/tree/task-9/bff-service
 Cr.2 | Dockerfile is optimized | https://github.com/SeLub/shop-aws-cart-api/blob/feat/deploy-from-registry/Dockerfiles/Dockerfile
 Cr.3 | At least 2 big directories should be included in .dockerignore | https://github.com/SeLub/shop-aws-cart-api/blob/feat/deploy-from-registry/.dockerignore
 Cr.4 | GitHub Cart API service | https://github.com/SeLub/shop-aws-cart-api
@@ -41,10 +41,7 @@ Service | Method | URL | Action |
 product-service | GET | product | get Products List
 product-service | GET | product/?id={id} | get Product By Id
 product-service | POST | product | create Product
-
-* product-service | DELETE | product/?id={id} | delete All Products
-* product-service | PUT | product/?id={id} | update Products By Id
-* product-service | DELETE | product | delete All Products
+cart-service | GET | cart | get Products in Cart
 
 ## Screenshots 
 
