@@ -29,10 +29,10 @@ Self check:
 Evaluation criteria   | Description | URL 
 ----------------------|-------------|-----
 Cr.1 | Link to the **repo**.  You can clone **repo**, check env variables in .env and star app by **npm start**.  Then you can make requests by POSTMAN. Urls you can get from API table below. Resaults should be like on screenshots below. | https://github.com/SeLub/shop-aws-be/tree/task-9/bff-service
-Cr.1 | Product-service service API: ALL products | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products
-Cr.1 | Product-service service API: PRODUCT by ID | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products/89da7309-e5ed-48a4-b4e6-ae47c947ae12
-Cr.1 | Product-service service API: CREATE PRODUCT | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products
-Cr.1 | Cart-service service API | http://selub-cart-api.eu-central-1.elasticbeanstalk.com/api/profile/cart
+Cr.1 | Product-service service API: ALL products (GET) | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products
+Cr.1 | Product-service service API: PRODUCT by ID (GET) | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products/89da7309-e5ed-48a4-b4e6-ae47c947ae12
+Cr.1 | Product-service service API: CREATE PRODUCT (POST) | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products
+Cr.1 | Cart-service service API (GET) | http://selub-cart-api.eu-central-1.elasticbeanstalk.com/api/profile/cart
 Ad.1 | To check cash: !create product, then open frontend url (you ) | https://github.com/SeLub/shop-aws-fe/pull/6/files
 Ad.2 | I did not implement **NestJS**  | -
 
