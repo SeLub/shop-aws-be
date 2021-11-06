@@ -37,7 +37,7 @@ Cr.1 | Product-service service API: CREATE PRODUCT (POST) | https://yjktumlqrl.e
 Cr.1 | bff-service service API:: CREATE PRODUCT (POST) |  http://selub-bff-api-env.eu-central-1.elasticbeanstalk.com/product
 Cr.1 | Cart-service service API: Products in Cart (GET) | http://selub-cart-api.eu-central-1.elasticbeanstalk.com/api/profile/cart
 Cr.2 | bff-service service API Products in Cart (GET) | http://selub-bff-api-env.eu-central-1.elasticbeanstalk.com/cart
-Ad.3 | How to check cache work - read below. I use module **node-cache**| https://github.com/SeLub/shop-aws-fe/pull/6/files
+Ad.3 | How to check cache work - read below. I use module **node-cache**| https://github.com/SeLub/shop-aws-be/blob/task-9/bff-service/routes/index.js
 Ad.2 | I did not implement **NestJS**  | -
 
 ### Как проверить работу кэша
