@@ -18,7 +18,7 @@ const PRODUCT = process.env.PRODUCT;
 const app = express();
 
 let corsOptions = {
-	origin: 'http://localhost:3000'
+	origin: `http://localhost: ${PORT}`
 };
 
 app.use(cors(corsOptions));
@@ -124,5 +124,5 @@ const makeAxios = (req, res, recipientURL) => {
 				};
 			
 			});
-			
+
 }; //makeAxios
