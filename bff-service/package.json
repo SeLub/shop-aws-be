@@ -5,6 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "eb:init": "eb init selub-bff-api",
+    "eb:create": "eb create selub-bff-api-env -p node.js-12 --cname selub-bff-api-dev --single -r eu-central-1",
+    "eb:deploy": "eb deploy -r eu-central-1 selub-bff-api-env",
+    "deploy": "npm run build && npm run eb:deploy",
     "start":"node server"
   },
   "author": "",
