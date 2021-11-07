@@ -17,8 +17,9 @@ const PORT = process.env.PORT || 3000;
 const CART = process.env.CART;
 const PRODUCT = process.env.PRODUCT;
 
-/* GET home page. */
-router.get('/*', function(req, res, next) {
+/* GET all pages. */
+router.route('/*')
+.all(function(req, res, next) {
   const recipient = req.originalUrl.split('/')[1];
 
   console.log(recipient);
