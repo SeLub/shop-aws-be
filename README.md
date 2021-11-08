@@ -42,7 +42,7 @@ Ad.2 | I did not implement **NestJS**  | -
 
 ### Как проверить работу кэша
 - откройте фронтенд и посмотрите сколько сейчас товаров на сайте https://d3ph6tvz43noms.cloudfront.net/ 
-- создайте новый товар отправив запрос из POSTMAN: https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products
+- создайте новый товар отправив запрос из POSTMAN: http://selub-bff-api-env.eu-central-1.elasticbeanstalk.com/product
 - сразу же из POSTMAN отправьте запрос на вывод всех товаров (через bff): http://selub-bff-api-env.eu-central-1.elasticbeanstalk.com/product
 - и сразу же проверьте количество во фронтенде https://d3ph6tvz43noms.cloudfront.net/ 
 
