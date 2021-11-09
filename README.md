@@ -4,10 +4,6 @@ Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-devel
 
 Task due date / deadline date - 06.11.21 / 06.11.21 23:59(GMT+3)
 
-Self check:
- 
- TOTAL POINTS - _** 7 points**_
- 
 -----------
 ## __Evaluation criteria__
 
