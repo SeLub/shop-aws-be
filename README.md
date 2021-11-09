@@ -6,7 +6,7 @@ Task due date / deadline date - 05.11.21 / 06.11.21 23:59(GMT+3)
 
 Self check:
  
- TOTAL POINTS - _** 6 points**_
+ TOTAL POINTS - _** 7 points**_
  
 -----------
 ## __Evaluation criteria__
