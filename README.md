@@ -2,7 +2,7 @@
 
 Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/new-tasks/task9-bff-elastic-beanstalk/task.md)
 
-Task due date / deadline date - 05.11.21 / 06.11.21 23:59(GMT+3)
+Task due date / deadline date - 06.11.21 / 06.11.21 23:59(GMT+3)
 
 Self check:
  
