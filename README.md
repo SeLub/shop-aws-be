@@ -1,21 +1,19 @@
-# __Task 8__
+# __Task 9__
 
-Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/new-tasks/task8-cart-api-docker-elastic-beanstalk/task.md)
+Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/new-tasks/task9-bff-elastic-beanstalk/task.md)
 
-Task due date / deadline date - 25.10.21 / 25.10.21 23:59(GMT+3)
+Task due date / deadline date - 06.11.21 / 06.11.21 23:59(GMT+3)
 
-Self check:
- 
- TOTAL POINTS - _** 5 points**_
- 
 -----------
 ## __Evaluation criteria__
 
-- [x] Cr.1: **1** - Dockerfile is prepared, image is building. Image size is minimised to be less than 500 MB.
-- [x] Cr.2: **2** - Dockerfile is optimized. Files that change more often and commands that depend on them should be included later, files and commands that change less should be at the top.
-- [x] Cr.3: **3** - Folders are added to .dockerignore, with explanations. At least 2 big directories should be excluded from build context. Elastic Beanstalk application is initialized.
-- [x] Cr.4: **4** - Environment is created and the app is deployed to the AWS cloud. You must provide a link to your GitHub repo with Cart API service or PR with created Dockerfile and related configurations.
-- [x] Cr.5: **5** - FE application is updated with Cart API endpoint. You must provide a PR with updates in your FE repository and OPTIONALLY link to deployed front-end app which makes proper API calls to your Cart service.
+- [x] Cr.1: **3** - A working and correct **express** application should be in the **bff-service** folder. Reviewer can start this application locally with any valid configuration in the **.env** file and this application should works as described in the task 9.1
+- [x] Cr.2: **5** - The **bff-service** should be deployed with Elastic Beanstalk. The **bff-service** call should be redirected to the appropriate service : **product-service** or **CART**. The response from the **bff-service** should be the same as if **product-service** or **CART** services were called directly.
+
+## __Additional (optional) tasks__
+
+- [x] Ad.1: **+1** - Add a cache at the **bff-service** level for a request to the **getProductsList** function of the **product-service**. The cache should expire in 2 minutes.  
+- [x] Ad2.2: **+1** - Use **NestJS** to create **bff-service** instead of **express**
 
 ------------
 
@@ -25,60 +23,47 @@ Self check:
 
 
 Evaluation criteria   | Description | URL 
--------|--------------|-----
-Cr.1 | Dockerfile is prepared (non-optimized) | https://github.com/SeLub/shop-aws-cart-api/blob/feat/nonopimized-deploy-from-registry/Dockerfiles/Dockerfile
-Cr.2 | Dockerfile is optimized | https://github.com/SeLub/shop-aws-cart-api/blob/feat/deploy-from-registry/Dockerfiles/Dockerfile
-Cr.3 | At least 2 big directories should be included in .dockerignore | https://github.com/SeLub/shop-aws-cart-api/blob/feat/deploy-from-registry/.dockerignore
-Cr.4 | GitHub Cart API service | https://github.com/SeLub/shop-aws-cart-api
-Cr.5 | A PR with updates in FE repository | https://github.com/SeLub/shop-aws-fe/pull/6/files
-Cr.5 | A link from API PATH to api/profile/cart | http://selub-cart-api.eu-central-1.elasticbeanstalk.com/api/profile/cart
+----------------------|-------------|-----
+Cr.1 | Link to the **repo**.  You can clone **repo**, check env variables in .env and star app by **npm start**.  Then you can make requests by POSTMAN. Urls you can get from API table below. Resaults should be like on screenshots below. | https://github.com/SeLub/shop-aws-be/tree/task-9/bff-service
+Cr.1 | Product-service service API: ALL products (GET) | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products
+Cr.2 | bff-service service API: ALL products (GET) | http://selub-bff-api-env.eu-central-1.elasticbeanstalk.com/product
+Cr.1 | Product-service service API: PRODUCT by ID (GET) | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products/89da7309-e5ed-48a4-b4e6-ae47c947ae12
+Cr.1 | bff-service service API: PRODUCT by ID (GET) | http://selub-bff-api-env.eu-central-1.elasticbeanstalk.com/product/?id=89da7309-e5ed-48a4-b4e6-ae47c947ae12
+Cr.1 | Product-service service API: CREATE PRODUCT (POST) | https://yjktumlqrl.execute-api.eu-central-1.amazonaws.com/dev/products
+Cr.1 | bff-service service API:: CREATE PRODUCT (POST) |  http://selub-bff-api-env.eu-central-1.elasticbeanstalk.com/product
+Cr.1 | Cart-service service API: Products in Cart (GET) | http://selub-cart-api.eu-central-1.elasticbeanstalk.com/api/profile/cart
+Cr.2 | bff-service service API Products in Cart (GET) | http://selub-bff-api-env.eu-central-1.elasticbeanstalk.com/cart
+Ad.3 | How to check cache work - read below. I use module **node-cache**| https://github.com/SeLub/shop-aws-be/blob/task-9/bff-service/routes/index.js
+
+### Как проверить работу кэша
+- откройте фронтенд и посмотрите сколько сейчас товаров на сайте https://d3ph6tvz43noms.cloudfront.net/ 
+- создайте новый товар отправив запрос из POSTMAN: http://selub-bff-api-env.eu-central-1.elasticbeanstalk.com/product
+- сразу же из POSTMAN отправьте запрос на вывод всех товаров (через bff): http://selub-bff-api-env.eu-central-1.elasticbeanstalk.com/product
+- и сразу же проверьте количество во фронтенде https://d3ph6tvz43noms.cloudfront.net/ 
+
+Количество во фронтенде будет на 1 товар больше, т.к. bff кэширует вывод списка всех товаров ровно на 2 минуты. По истечении этого времени оба сервиса вернут одинаковое количество товаров
+
+
+### API Table
+Service | Method | URL | Action |
+--------|--------|-----|--------|
+product-service | GET | product | get Products List
+product-service | GET | product/?id={id} | get Product By Id
+product-service | POST | product | create Product
+cart-service | GET | cart | get Products in Cart
 
 ## Screenshots 
 
 ------------
-#### **Elastic Beanstalk** -  задеплоил приложение
 
-![Elastic Beanstalk](eb.png)
+#### **Express Server** -  получаем список всех товаров через **bff**
 
-#### Настройки браузера Brave для проверки работы Cart API. Позволяет HTTP.
+![Get All Products](express_all.png)
 
-![Brave Settings](brave_settings.png)
+#### **Express Server** -  получаем товар по id через **bff**
 
-#### **Страница с товарами в корзине** - после обновления товары в корзине сохраняются.
+![Get Product by ID](express_id.png)
 
-![Cart after Page Refresh](cart_after_refresh.png)
+#### **Express Server** -  создаём товар через **bff**
 
-#### **Elastic Container Registry** - разница в размерах загруженных оптимизированного и не оптимизированного images.
-
-![Size differency of optimized and nonoptimized images](optimized-nonoptimized.png)
-
-#### **Docker running on 64bit Amazon Linux 2** - протетсировал создание docker образа на платформе Linux 2. Теперь вместо красного Deprecated - зелёное Supported.
-
-![deprecated](deprecated.png)
-![supported](supported.png)
-
-# Дополнительно 
-
-Репозиторий Cart API service https://github.com/SeLub/shop-aws-cart-api
-
-В ветке feat/nonopimized-deploy-from-registry находится НЕоптимизированный имидж. Если В приложении выполнить npm run publish:image, то в результате будет создан не оптимизированный image размером __440.54 MB__. Далее можно перейти в ветку feat/deploy-from-registry и выполнить команду npm run publish:image. В результате будет создан оптимизированный image размером __20.21 MB__.
-
------
-
-## Создание приложения
-
-eb init -r eu-central-1
-
-Enter Application Name: shop-aws-cart-api
-It appears you are using Docker. Is this correct? Y
-
-Select a platform branch.
-1) Docker running on 64bit Amazon Linux 2
-2) Multi-container Docker running on 64bit Amazon Linux (Deprecated)
-3) Docker running on 64bit Amazon Linux (Deprecated)
-
-**Выбрать платформу Linux 2** - пункт 1. Это будет не **Deprecated**, а **Supported**
-
-Do you wish to continue with CodeCommit? (Y/n) n
-Do you want to set up SSH for your instances? (Y/n) n
-
+![Create Product](express_create.png)

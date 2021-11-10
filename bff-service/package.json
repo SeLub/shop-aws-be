@@ -1,0 +1,24 @@
+{
+  "name": "bff-service",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "eb:init": "eb init selub-bff-api",
+    "eb:create": "eb create selub-bff-env --platform node.js --cname selub-bff-api-env --single --region eu-central-1",
+    "eb:deploy": "eb deploy --region eu-central-1 selub-bff-env"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "^4.17.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1",
+    "axios": "^0.24.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "node-cache": "^5.1.2"
+  }
+}

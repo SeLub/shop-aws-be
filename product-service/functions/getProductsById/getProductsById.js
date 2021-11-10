@@ -60,7 +60,8 @@ export const handler = async event => {
           .then(() => console.log('Client disconnected'))
           .catch(err => {data_export = 'DB disconnection error 500:' + err.stack; error_code = 500})
 
-  if (JSON.stringify(data_export) == JSON.stringify([])) { data_export = 'Product not found 500: Wrong id'; error_code = 400 }
+  if (JSON.stringify(data_export) == JSON.stringify([])) { data_export = 'Product not found 400: Wrong id'; error_code = 400 } 
+  else {error_code = 200};
 
   return await handleResponse(data_export, error_code);
 }
